@@ -1,8 +1,10 @@
-﻿#!/usr/bin/python
+﻿#!/usr/bin/env python
 
 import sys
 import re
-import mechanize
+from robobrowser import RoboBrowser
+
+import warnings    # to work around a bug in RoboBrowser
 
 baseURI = "http://www.ibreviary.com/m2/"
 rootURI = baseURI + "breviario.php"
@@ -32,32 +34,39 @@ if len(sys.argv) == 7:
   hour     = sys.argv[6]
 
   try:
-    br = mechanize.Browser()
+    with warnings.catch_warnings():
+      warnings.simplefilter("ignore")
+      browser = RoboBrowser(history=True)
 
-    br.open(optionsURI)
-    br.select_form(nr=0)
+      # Set the iBreviary options
+      browser.open(optionsURI)
+      
+      optionsForm = browser.get_form(action='/m2/opzioni.php')
   
-    br.form["anno"] = year
-    br.form["giorno"] = day
-    br.form["mese"] = [month]
-    br.form["lang"] = [language]
-    br.submit()
-  
-    mypage = br.open(hours[hour])
+      optionsForm["anno"] = year
+      optionsForm["giorno"] = day
+      optionsForm["mese"] = month
+      optionsForm["lang"] = language
+      browser.submit_form(optionsForm)
 
-    if fileName=="-":
-      fo = sys.stdout
-    else:
-      fo = open(fileName, "w")
+      # Now download the desired hour.
+      browser.open(hours[hour])
+
+      if fileName=="-":
+        outputFile = sys.stdout
+      else:
+        outputFile = open(fileName, "w")
   
-    try:
-      fo.write(mypage.read())
-    finally:
-      fo.close
+      # Write its contents to the output file.  
+      try:
+        print(browser.parsed, file=outputFile)
+        #outputFile.write(browser.parsed.unicode)
+      finally:
+        outputFile.close
 
   except Exception as ex:
-    print >> sys.stderr, "EXC: ", ex
+    print ("EXC: ", ex, sys.stderr)
     sys.exit(5)
 
 else:
-  print >> sys.stderr, "Usage: ", sys.argv[0], " output-file year month day language hour\n\nUse - for output-file if writing to standard output."
+  print("Usage: ", sys.argv[0], " output-file year month day language hour\n\nUse - for output-file if writing to standard output.", file=sys.stderr)
