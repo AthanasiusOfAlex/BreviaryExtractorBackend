@@ -1,2 +1,2 @@
-BreviaryExtractor/bin
-BreviaryExtractor/obj
+BreviaryExtractor/bin/**
+BreviaryExtractor/obj/**
