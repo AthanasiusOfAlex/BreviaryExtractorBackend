@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{B5D6FFA0-98AC-46F0-A9C5-0A2099785282}</ProjectGuid>
+    <Compiler>DMD2</Compiler>
+    <PreferOneStepBuild>true</PreferOneStepBuild>
+    <UseDefaultCompiler>true</UseDefaultCompiler>
+    <IncrementalLinking>true</IncrementalLinking>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Debug</OutputPath>
+    <ObjectsDirectory>obj/Debug</ObjectsDirectory>
+    <LinkinThirdPartyLibraries>false</LinkinThirdPartyLibraries>
+    <UnittestMode>false</UnittestMode>
+    <OutputName>BreviaryExtractor</OutputName>
+    <Target>Executable</Target>
+    <DebugLevel>0</DebugLevel>
+    <ConsolePause>false</ConsolePause>
+    <ExtraLinkerArguments>-ltidy5 -L"/Users/lmelahn/Documents/tidy/lib/"</ExtraLinkerArguments>
+    <Commandlineparameters>--saveToFolder=/Users/lmelahn/Desktop/iBreviary --language=en --numberOfDays=10</Commandlineparameters>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>bin\Release</OutputPath>
+    <ObjectsDirectory>obj/Release</ObjectsDirectory>
+    <LinkinThirdPartyLibraries>false</LinkinThirdPartyLibraries>
+    <UnittestMode>false</UnittestMode>
+    <OutputName>BreviaryExtractor</OutputName>
+    <Target>Executable</Target>
+    <Externalconsole>true</Externalconsole>
+    <DebugLevel>0</DebugLevel>
+    <ConsolePause>false</ConsolePause>
+    <ExtraLinkerArguments>-ltidy5 -L"/Users/lmelahn/Documents/tidy/lib/"</ExtraLinkerArguments>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Unittest|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Unittest</OutputPath>
+    <ObjectsDirectory>obj/Unittest</ObjectsDirectory>
+    <LinkinThirdPartyLibraries>false</LinkinThirdPartyLibraries>
+    <UnittestMode>true</UnittestMode>
+    <OutputName>BreviaryExtractor</OutputName>
+    <Target>Executable</Target>
+    <Externalconsole>true</Externalconsole>
+    <DebugLevel>0</DebugLevel>
+    <ConsolePause>false</ConsolePause>
+    <Libs>
+      <Libs>
+        <Lib>/opt/local/lib/libtidy.a</Lib>
+      </Libs>
+    </Libs>
+    <ExtraLinkerArguments>-ltidy</ExtraLinkerArguments>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="main.d" />
+    <Compile Include="lm\userfolders.d" />
+    <Compile Include="lm\regexhelper.d" />
+    <Compile Include="lm\tidyinterface.d" />
+    <Compile Include="arsd\characterencodings.d" />
+    <Compile Include="arsd\dom.d" />
+    <Compile Include="hour\downloadhour.d" />
+    <Compile Include="hour\hour.d" />
+    <Compile Include="lm\domhelper.d" />
+    <Compile Include="config.d" />
+    <Compile Include="lm\datehelper.d" />
+    <Compile Include="day\day.d" />
+    <Compile Include="tools\preparehtml.d" />
+    <Compile Include="progressindicator\progressindicator.d" />
+    <Compile Include="filemanager\filemanager.d" />
+    <Compile Include="deprecated\breviarydownloader.d" />
+    <Compile Include="deprecated\helperfunctions.d" />
+    <Compile Include="deprecated\ibreviarydomhelper.d" />
+    <Compile Include="converttokindle\converttokindle.d" />
+    <Compile Include="processcommandline\processcommandline.d" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="downloader.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="breviarystyle.css">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="kindlegen">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="metadata.opf.template">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="toc.ncx.template">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="lm\" />
+    <Folder Include="arsd\" />
+    <Folder Include="hour\" />
+    <Folder Include="day\" />
+    <Folder Include="tools\" />
+    <Folder Include="progressindicator\" />
+    <Folder Include="filemanager\" />
+    <Folder Include="deprecated\" />
+    <Folder Include="converttokindle\" />
+    <Folder Include="processcommandline\" />
+  </ItemGroup>
+</Project>

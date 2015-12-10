@@ -1,0 +1,60 @@
+﻿h1 {
+  font-size: 1.5em;
+  text-align: center;
+}
+h2, h3 {
+  text-align: center;
+  margin-bottom: 2em;
+}
+h2 {
+  font-size: 1.5em;
+}
+h3 {
+  font-size: 1.25em;
+}
+p {
+  text-align: justify;
+  margin: 0 0 0.75em 0;
+}
+.date {
+  font-size: 1em;
+  text-align: center;
+  margin: 0 0 1.5em 0;
+}
+.normal {
+  color: black;
+}
+.rubrica {
+  color: red;
+}
+div.gotohours {
+  display: table;
+  width: 60%;
+  margin-left:auto;
+  margin-right:auto;
+  background-color: black;
+}
+.gotohours p {
+  display: table-row;
+}
+.gotohours a {
+  border: 1pt solid white;
+  display: table-cell;
+  padding: 10pt;
+  text-align: center;
+  text-decoration: none;
+  color: white;
+}
+.pagebreak {
+  page-break-before: always;
+}
+.makeupreading {
+  color: red;
+}
+.makeupreading p {
+  font-style: italic;
+  font-size: 95%;
+}
+div.makeupreading em {
+  font-style: normal;
+}

@@ -1,0 +1,15 @@
+﻿<Properties StartupItem="BreviaryExtractor/BreviaryExtractor.dproj">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="BreviaryExtractor/main.d">
+    <Files>
+      <File FileName="BreviaryExtractor/main.d" Line="26" Column="64" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <DisabledProjects>
+    <String>../cleanHTML/cleanHTML/cleanHTML.cproj</String>
+  </DisabledProjects>
+</Properties>

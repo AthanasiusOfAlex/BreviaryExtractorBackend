@@ -1,0 +1,42 @@
+﻿<?xml version="1.0"?>
+<!DOCTYPE ncx PUBLIC "-//NISO//DTD ncx 2005-1//EN" 
+   "http://www.daisy.org/z3986/2005/ncx-2005-1.dtd">
+<ncx xmlns="http://www.daisy.org/z3986/2005/ncx/" version="2005-1">
+  <head>
+  </head>
+  <docTitle>
+    <text>Breviary</text>
+  </docTitle>
+<navMap>
+    <navPoint id="num_1" playOrder="1">
+      <navLabel>
+        <text>Office of Readings</text>
+      </navLabel>
+      <content src="%file%#%office%"/>
+    </navPoint>
+    <navPoint id="num_2" playOrder="2">
+      <navLabel>
+        <text>Morning Prayer</text>
+      </navLabel>
+      <content src="%file%#%lauds%"/>
+    </navPoint>
+    <navPoint id="num_3" playOrder="3">
+      <navLabel>
+        <text>Daytime Prayers</text>
+      </navLabel>
+      <content src="%file%#%daytime%"/>
+    </navPoint>
+    <navPoint id="num_4" playOrder="4">
+      <navLabel>
+        <text>Evening Prayer</text>
+      </navLabel>
+      <content src="%file%#%vespers%"/>
+    </navPoint>
+    <navPoint id="num_5" playOrder="5">
+      <navLabel>
+        <text>Night Prayer</text>
+      </navLabel>
+      <content src="%file%#%complines%"/>
+    </navPoint>
+  </navMap>
+</ncx>
