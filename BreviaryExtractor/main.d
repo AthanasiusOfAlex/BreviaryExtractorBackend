@@ -15,7 +15,6 @@ import day;
 import filemanager;
 import processcommandline;
 import progressindicator;
-import config;
 
 int main(string[] args)
 {
