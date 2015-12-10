@@ -20,7 +20,7 @@
     <DebugLevel>0</DebugLevel>
     <ConsolePause>false</ConsolePause>
     <ExtraLinkerArguments>-ltidy5 -L"/Users/lmelahn/Documents/tidy/lib/"</ExtraLinkerArguments>
-    <Commandlineparameters>--saveToFolder=/Users/lmelahn/Desktop/iBreviary --language=en --numberOfDays=10</Commandlineparameters>
+    <Commandlineparameters>--saveToFolder=/Users/lmelahn/Desktop/iBreviary --language=en --numberOfDays=3</Commandlineparameters>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <OutputPath>bin\Release</OutputPath>
