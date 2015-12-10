@@ -75,19 +75,19 @@
     <Compile Include="processcommandline\processcommandline.d" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="downloader.py">
+    <None Include="resources\downloader.py">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="breviarystyle.css">
+    <None Include="resources\kindlegen">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="kindlegen">
+    <None Include="resources\breviarystyle.css">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="metadata.opf.template">
+    <None Include="resources\metadata.opf.template">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="toc.ncx.template">
+    <None Include="resources\toc.ncx.template">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
@@ -102,5 +102,6 @@
     <Folder Include="deprecated\" />
     <Folder Include="converttokindle\" />
     <Folder Include="processcommandline\" />
+    <Folder Include="resources\" />
   </ItemGroup>
 </Project>
