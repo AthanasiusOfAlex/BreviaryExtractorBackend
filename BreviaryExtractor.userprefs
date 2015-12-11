@@ -1,10 +1,8 @@
 ﻿<Properties StartupItem="BreviaryExtractor/BreviaryExtractor.dproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Release" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="BreviaryExtractor/main.d">
+  <MonoDevelop.Ide.Workbench ActiveDocument="BreviaryExtractor/config.d">
     <Files>
-      <File FileName="BreviaryExtractor/config.d" Line="41" Column="1" />
-      <File FileName="BreviaryExtractor/filemanager/filemanager.d" Line="15" Column="43" />
-      <File FileName="BreviaryExtractor/main.d" Line="88" Column="16" />
+      <File FileName="BreviaryExtractor/config.d" Line="16" Column="46" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
