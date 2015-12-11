@@ -2,6 +2,7 @@
 
 import std.algorithm;
 import std.file;
+import std.format;
 import std.path;
 import std.process;
 
@@ -16,14 +17,12 @@ void convertToKindle(Day day, string outputFolder)
 {
 	static if (convertToMobi==ConvertToMobi.yes)
 	{
-		immutable string kindleConverter = buildPath(getCurrentWorkingFolder, `kindlegen`);
-
-		if (!exists(kindleConverter))
+		if (!exists(kindleGenExecutable))
 		{
-			throw new Exception(`The kindlegen program (, '` ~ kindleConverter ~ `',) does not exist. Please reinstall.`);
+			throw new Exception(format(`The kindlegen program (, '%',) does not exist. Please reinstall.`), kindleGenExecutable);
 		}
 
-		auto convertProcess = execute([kindleConverter, buildPath(outputFolder, day.opfFileName)]);
+		auto convertProcess = execute([kindleGenExecutable, buildPath(outputFolder, day.opfFileName)]);
 	}
 
 	// Remove the data files.

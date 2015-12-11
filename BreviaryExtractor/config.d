@@ -12,12 +12,8 @@ import processcommandline;
 
 immutable earliestDate = Date(1970, Month.jan, 1);
 immutable countStarting = CountStarting.today;
-
-immutable pythonExecutable = `/opt/local/bin/python2.7`;
 immutable convertToMobi = ConvertToMobi.yes;
-
 immutable cleanDataFiles = CleanDataFiles.yes;
-
 immutable resourceFolder = `resources`;
 
 immutable kindleGenExecutable = buildPath(resourceFolder, `kindlegen`);
@@ -28,7 +24,6 @@ immutable cssFile = buildPath(resourceFolder, `breviarystyle.css`);
 immutable cssFileTemplate = buildPath(resourceFolder, cssFile);
 
 public Options options;
-
 
 enum Hora
 {

@@ -61,7 +61,7 @@ if len(sys.argv) == 7:
       try:
         # To avoid problems with stdout, convert first to byte array,
         # then write to file.
-        outputBytes = byte(browser.parsed, 'utf-8')
+        outputBytes = bytes(str(browser.parsed), 'utf-8')
         outputFile.buffer.write(outputBytes)
 
       finally:

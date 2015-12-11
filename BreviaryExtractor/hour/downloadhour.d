@@ -36,6 +36,7 @@ string downloadHour(Date date, Hora hora, Language language)
 	// Download the hour.
 	auto shellCommand = format(
 		`%s %s %s %s %s %s %s`,
+		downloadExecutible,
 		`-`,
 		date.year,
 		date.month.to!uint,
