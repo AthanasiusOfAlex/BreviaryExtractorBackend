@@ -10,7 +10,6 @@ import std.string;
 import std.datetime;
 
 import config;
-import config;
 
 /**
  * Returns the raw hour from the website,
@@ -21,6 +20,7 @@ string downloadHour(Date date, Hora hora, Language language)
 {
 	import std.conv;
 	import std.file;
+	import std.format;
 	import std.path;
 	import std.process;
 	import lm.tidyinterface;
@@ -28,32 +28,33 @@ string downloadHour(Date date, Hora hora, Language language)
 
 
 
-	auto downloader = buildPath(getCurrentWorkingFolder, downloaderScript);
-	if (!exists(downloader))
+	if (!exists(downloadExecutible))
 	{
-		throw new Exception(`The downloader, '` ~ downloaderScript ~ `', does not exist. Please reinstall.`);
+		throw new Exception(format(`%s, does not exist. Please reinstall.`, downloadExecutible));
 	}
 	
 	// Download the hour.
-	auto downloadProcess = execute(
-		[pythonExecutable,
-			downloader,
-			`-`, date.year.to!string,
-			date.month.to!uint.to!string,
-			date.day.to!string,
-			language.to!string,
-			hora.to!string]);
+	auto shellCommand = format(
+		`%s %s %s %s %s %s %s`,
+		`-`,
+		date.year,
+		date.month.to!uint,
+		date.day,
+		language,
+		hora);
+
+	auto downloadProcess = executeShell(shellCommand);
 	
 	if (downloadProcess.status == 5)
 	{
-		throw new Exception(`Unable to access the Internet.`);
+		throw new Exception(format(`Unable to access the Internet. Output: %s`, downloadProcess.output));
 	}
 	else if (downloadProcess.status != 0)
 	{
-		throw new Exception(`Downloader returned status ` ~
-			downloadProcess.status.to!string ~
-			` and could not be run.\n` ~
-			`Output: "` ~ downloadProcess.output ~ `"`);
+		throw new Exception(format(
+				`Downloader returned status %s and could not be run.\nOutput: %s`,
+				downloadProcess.status,
+				downloadProcess.output));
 	}
 	// downloadprocess.status == 0.
 	

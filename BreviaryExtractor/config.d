@@ -10,16 +10,22 @@ import lm.userfolders;
 import config;
 import processcommandline;
 
-immutable Date earliestDate = Date(1970, Month.jan, 1);
-immutable CountStarting countStarting = CountStarting.today;
-immutable pythonExecutable = `/opt/local/bin/python2.7`;
-immutable ConvertToMobi convertToMobi = ConvertToMobi.yes;
-immutable downloaderScript = `downloader.py`;
-immutable CleanDataFiles cleanDataFiles = CleanDataFiles.yes;
+immutable earliestDate = Date(1970, Month.jan, 1);
+immutable countStarting = CountStarting.today;
 
-immutable opfTemplate = "metadata.opf.template";
-immutable tocTemplate = "toc.ncx.template";
-immutable cssFile = "breviarystyle.css";
+immutable pythonExecutable = `/opt/local/bin/python2.7`;
+immutable convertToMobi = ConvertToMobi.yes;
+
+immutable cleanDataFiles = CleanDataFiles.yes;
+
+immutable resourceFolder = `resources`;
+
+immutable kindleGenExecutable = buildPath(resourceFolder, `kindlegen`);
+immutable downloadExecutible = buildPath(resourceFolder, `downloader`);
+immutable opfTemplate = buildPath(resourceFolder, `metadata.opf.template`);
+immutable tocTemplate = buildPath(resourceFolder, `toc.ncx.template`);
+immutable cssFile = buildPath(resourceFolder, `breviarystyle.css`);
+immutable cssFileTemplate = buildPath(resourceFolder, cssFile);
 
 public Options options;
 
@@ -31,6 +37,11 @@ enum Hora
 	daytime,
 	vespers,
 	complines
+}
+
+string resourceOutputFolder()
+{
+	return buildPath(getCurrentWorkingFolder(), resourceFolder);
 }
 
 string horaFullTitle(Hora hora, Language language)
