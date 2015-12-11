@@ -103,6 +103,9 @@
     <None Include="resources\downloader-compile.sh" />
     <None Include="tidy\libtidys.a" />
     <None Include="tidy\LICENSE.txt" />
+    <None Include="..\README.md">
+      <Link>README.md</Link>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="lm\" />
