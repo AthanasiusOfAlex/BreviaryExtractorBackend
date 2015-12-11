@@ -1,8 +1,8 @@
 ﻿<Properties StartupItem="BreviaryExtractor/BreviaryExtractor.dproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="BreviaryExtractor/main.d">
+  <MonoDevelop.Ide.Workbench ActiveDocument="BreviaryExtractor/resources/downloader.py">
     <Files>
-      <File FileName="BreviaryExtractor/main.d" Line="18" Column="1" />
+      <File FileName="BreviaryExtractor/resources/downloader.py" Line="27" Column="21" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

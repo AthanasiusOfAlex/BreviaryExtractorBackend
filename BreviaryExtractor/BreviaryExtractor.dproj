@@ -21,6 +21,11 @@
     <ConsolePause>false</ConsolePause>
     <ExtraLinkerArguments>-ltidy5 -L"/Users/lmelahn/Documents/tidy/lib/"</ExtraLinkerArguments>
     <Commandlineparameters>--saveToFolder=/Users/lmelahn/Desktop/iBreviary --language=en --numberOfDays=3</Commandlineparameters>
+    <CustomCommands>
+      <CustomCommands>
+        <Command type="AfterBuild" command="/opt/local/Library/Frameworks/Python.framework/Versions/3.5/bin/pyinstaller ${ProjectDir}/resources/downloader.py --onefile" workingdir="${ProjectDir}/bin/Debug/" />
+      </CustomCommands>
+    </CustomCommands>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <OutputPath>bin\Release</OutputPath>
@@ -87,10 +92,11 @@
     <None Include="resources\toc.ncx.template">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="deprecated\downloader-deprecated.py" />
     <None Include="resources\downloader.py">
+      <DeployService-Deploy>True</DeployService-Deploy>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="deprecated\downloader-deprecated.py" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="lm\" />
