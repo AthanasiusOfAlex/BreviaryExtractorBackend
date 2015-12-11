@@ -1,10 +1,8 @@
 ﻿<Properties StartupItem="BreviaryExtractor/BreviaryExtractor.dproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="BreviaryExtractor/resources/downloader-compile.sh">
+  <MonoDevelop.Ide.Workbench>
     <Files>
-      <File FileName="BreviaryExtractor/resources/downloader-cleanup.sh" Line="9" Column="1" />
-      <File FileName="BreviaryExtractor/resources/downloader-compile.sh" Line="20" Column="1" />
-      <File FileName="BreviaryExtractor/processcommandline/processcommandline.d" Line="3" Column="31" />
+      <File FileName="BreviaryExtractor/config.d" Line="27" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

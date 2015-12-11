@@ -19,7 +19,7 @@
     <Target>Executable</Target>
     <DebugLevel>0</DebugLevel>
     <ConsolePause>false</ConsolePause>
-    <ExtraLinkerArguments>-ltidy5 -L"/Users/lmelahn/Documents/tidy/lib/"</ExtraLinkerArguments>
+    <ExtraLinkerArguments>-ltidys -Ltidy</ExtraLinkerArguments>
     <Commandlineparameters>--saveToFolder=/Users/lmelahn/Desktop/iBreviary --language=en --numberOfDays=3</Commandlineparameters>
     <CustomCommands>
       <CustomCommands>
@@ -38,7 +38,7 @@
     <Externalconsole>true</Externalconsole>
     <DebugLevel>0</DebugLevel>
     <ConsolePause>false</ConsolePause>
-    <ExtraLinkerArguments>-ltidy5 -L"/Users/lmelahn/Documents/tidy/lib/"</ExtraLinkerArguments>
+    <ExtraLinkerArguments>-ltidys -Ltidy</ExtraLinkerArguments>
     <CustomCommands>
       <CustomCommands>
         <Command type="AfterBuild" command="bash -c 'resources/downloader-compile.sh ${ProjectDir} Release'" />
@@ -102,6 +102,8 @@
     </None>
     <None Include="resources\downloader-cleanup.sh" />
     <None Include="resources\downloader-compile.sh" />
+    <None Include="tidy\libtidys.a" />
+    <None Include="tidy\LICENSE.txt" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="lm\" />
@@ -114,5 +116,6 @@
     <Folder Include="converttokindle\" />
     <Folder Include="processcommandline\" />
     <Folder Include="resources\" />
+    <Folder Include="tidy\" />
   </ItemGroup>
 </Project>
