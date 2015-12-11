@@ -59,8 +59,11 @@ if len(sys.argv) == 7:
   
       # Write its contents to the output file.  
       try:
-        print(browser.parsed, file=outputFile)
-        #outputFile.write(browser.parsed.unicode)
+        # To avoid problems with stdout, convert first to byte array,
+        # then write to file.
+        outputBytes = byte(browser.parsed, 'utf-8')
+        outputFile.buffer.write(outputBytes)
+
       finally:
         outputFile.close
 
