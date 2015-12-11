@@ -98,19 +98,6 @@ enum CountStarting
 	tomorrow
 }
 
-//Date startDate()
-//{
-//	static if (countStarting==CountStarting.today)
-//	{
-//		return cast(Date)Clock.currTime + dur!"days"(0);
-//	}
-//	else
-//	{
-//		return cast(Date)Clock.currTime + dur!"days"(1);	// i.e., tomorrow.
-//	}
-//}
-
-
 /**
  * Returns the next enum after the current one.
  * Loops around after the last enum.
