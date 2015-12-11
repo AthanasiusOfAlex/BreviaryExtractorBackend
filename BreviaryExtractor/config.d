@@ -20,7 +20,7 @@ immutable kindleGenExecutable = buildPath(resourceFolder, `kindlegen`);
 immutable downloadExecutible = buildPath(resourceFolder, `downloader`);
 immutable opfTemplate = buildPath(resourceFolder, `metadata.opf.template`);
 immutable tocTemplate = buildPath(resourceFolder, `toc.ncx.template`);
-immutable cssFile = buildPath(resourceFolder, `breviarystyle.css`);
+immutable cssFile = buildPath(`breviarystyle.css`);
 immutable cssFileTemplate = buildPath(resourceFolder, cssFile);
 
 public Options options;
@@ -34,10 +34,10 @@ enum Hora
 	complines
 }
 
-string resourceOutputFolder()
-{
-	return buildPath(getCurrentWorkingFolder(), resourceFolder);
-}
+//string resourceOutputFolder()
+//{
+//	return buildPath(getCurrentWorkingFolder(), resourceFolder);
+//}
 
 string horaFullTitle(Hora hora, Language language)
 {

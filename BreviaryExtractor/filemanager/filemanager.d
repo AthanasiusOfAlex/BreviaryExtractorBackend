@@ -8,8 +8,12 @@ import std.stdio;
 import lm.regexhelper;
 import lm.userfolders;
 
-void manageFiles(string outputFolder)
+import config;
+
+void manageFiles()
 {
+	auto outputFolder = options.saveToFolder;
+
 	void prepareFolder()
 	{
 		if (!exists(outputFolder))
@@ -20,7 +24,7 @@ void manageFiles(string outputFolder)
 
 	void copyCssFilesToFolder()
 	{
-		foreach(file; dirEntries(getCurrentWorkingFolder(), SpanMode.shallow).filter!(a => a.name.isMatchOf!`\.css$`))
+		foreach(file; dirEntries(resourceFolder, SpanMode.shallow).filter!(a => a.name.isMatchOf!`\.css$`))
 		{
 			copy(file.name, buildPath(outputFolder, file.baseName));
 		}

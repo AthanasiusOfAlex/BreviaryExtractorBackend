@@ -85,7 +85,7 @@ int main(string[] args)
 
 		try
 		{
-			manageFiles(options.saveToFolder);
+			manageFiles();
 		}
 		catch(Exception exc)
 		{

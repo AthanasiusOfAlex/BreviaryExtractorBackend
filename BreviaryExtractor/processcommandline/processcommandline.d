@@ -3,6 +3,7 @@
 import std.algorithm.iteration;
 import std.datetime;
 import std.getopt;
+import std.path;
 import std.range;
 
 import lm.userfolders;
@@ -41,6 +42,8 @@ class Options {
 			packageBy.stringof.baseName, &mPackageBy,
 			saveToFolder.stringof.baseName, &mSaveToFolder,
 			openInCalibre.stringof.baseName, &mSaveToCalibre);
+
+		mSaveToFolder = mSaveToFolder.expandTilde;
 
 		if (!mStartDateString.empty)
 		{

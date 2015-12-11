@@ -35,7 +35,6 @@
     <UnittestMode>false</UnittestMode>
     <OutputName>BreviaryExtractor</OutputName>
     <Target>Executable</Target>
-    <Externalconsole>true</Externalconsole>
     <DebugLevel>0</DebugLevel>
     <ConsolePause>false</ConsolePause>
     <ExtraLinkerArguments>-ltidys -Ltidy</ExtraLinkerArguments>
@@ -45,6 +44,7 @@
         <Command type="AfterClean" command="bash -c 'resources/downloader-cleanup.sh ${ProjectDir} Release'" />
       </CustomCommands>
     </CustomCommands>
+    <Commandlineparameters>--saveToFolder=/Users/lmelahn/Desktop/iBreviary --language=en --numberOfDays=3</Commandlineparameters>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Unittest|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
