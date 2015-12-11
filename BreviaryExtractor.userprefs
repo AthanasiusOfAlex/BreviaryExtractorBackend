@@ -1,8 +1,8 @@
 ﻿<Properties StartupItem="BreviaryExtractor/BreviaryExtractor.dproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workbench ActiveDocument="BreviaryExtractor/config.d">
     <Files>
-      <File FileName="BreviaryExtractor/config.d" Line="27" Column="1" />
+      <File FileName="BreviaryExtractor/config.d" Line="10" Column="8" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
