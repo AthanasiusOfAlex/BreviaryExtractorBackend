@@ -1,8 +1,9 @@
 ﻿<Properties StartupItem="BreviaryExtractor/BreviaryExtractor.dproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Release" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="BreviaryExtractor/config.d">
+  <MonoDevelop.Ide.Workbench>
     <Files>
       <File FileName="BreviaryExtractor/config.d" Line="16" Column="46" />
+      <File FileName="README.md" Line="3" Column="112" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
