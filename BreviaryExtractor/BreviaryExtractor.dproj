@@ -23,7 +23,8 @@
     <Commandlineparameters>--saveToFolder=/Users/lmelahn/Desktop/iBreviary --language=en --numberOfDays=3</Commandlineparameters>
     <CustomCommands>
       <CustomCommands>
-        <Command type="AfterBuild" command="/opt/local/Library/Frameworks/Python.framework/Versions/3.5/bin/pyinstaller ${ProjectDir}/resources/downloader.py --onefile" workingdir="${ProjectDir}/bin/Debug/" />
+        <Command type="AfterBuild" command="bash -c 'resources/downloader-compile.sh ${ProjectDir} Debug'" workingdir="" />
+        <Command type="AfterClean" command="bash -c 'resources/downloader-cleanup.sh ${ProjectDir} Debug'" />
       </CustomCommands>
     </CustomCommands>
   </PropertyGroup>
@@ -38,6 +39,12 @@
     <DebugLevel>0</DebugLevel>
     <ConsolePause>false</ConsolePause>
     <ExtraLinkerArguments>-ltidy5 -L"/Users/lmelahn/Documents/tidy/lib/"</ExtraLinkerArguments>
+    <CustomCommands>
+      <CustomCommands>
+        <Command type="AfterBuild" command="bash -c 'resources/downloader-compile.sh ${ProjectDir} Release'" />
+        <Command type="AfterClean" command="bash -c 'resources/downloader-cleanup.sh ${ProjectDir} Release'" />
+      </CustomCommands>
+    </CustomCommands>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Unittest|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>

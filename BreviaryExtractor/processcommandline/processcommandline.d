@@ -1,6 +1,6 @@
 ﻿module processcommandline;
 
-import std.algorithm;
+import std.algorithm.iteration;
 import std.datetime;
 import std.getopt;
 import std.range;
