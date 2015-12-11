@@ -164,23 +164,3 @@ private R advanceInEnum(R)(R currentEnum, int increment)
 	// Putting [] around it converts it into an array, avoiding the problem.
 	return [EnumMembers!R][currentEnumIdx];
 }
-
-/**
- * DEPRECATED
- * Use EnumMembers from std.traits instead.
- * EnumMembers!R returns a tuple.
- * Surround by square brackets to get an array.
- * Returns all members of an enum (or any similar
- * structure) as an array.
- */
-R[] getAllMembers(R)()
-{
-	R[] allMembers;
-	
-	foreach(member; __traits(allMembers, R))
-	{
-		allMembers ~= mixin(__traits(identifier, R) ~ "." ~ member);
-	}
-	
-	return allMembers;
-}

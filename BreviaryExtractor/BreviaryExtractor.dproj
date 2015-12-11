@@ -73,9 +73,6 @@
     <Compile Include="tools\preparehtml.d" />
     <Compile Include="progressindicator\progressindicator.d" />
     <Compile Include="filemanager\filemanager.d" />
-    <Compile Include="deprecated\breviarydownloader.d" />
-    <Compile Include="deprecated\helperfunctions.d" />
-    <Compile Include="deprecated\ibreviarydomhelper.d" />
     <Compile Include="converttokindle\converttokindle.d" />
     <Compile Include="processcommandline\processcommandline.d" />
   </ItemGroup>
@@ -92,7 +89,6 @@
     <None Include="resources\toc.ncx.template">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="deprecated\downloader-deprecated.py" />
     <None Include="resources\downloader.py">
       <DeployService-Deploy>True</DeployService-Deploy>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -106,7 +102,6 @@
     <Folder Include="tools\" />
     <Folder Include="progressindicator\" />
     <Folder Include="filemanager\" />
-    <Folder Include="deprecated\" />
     <Folder Include="converttokindle\" />
     <Folder Include="processcommandline\" />
     <Folder Include="resources\" />
