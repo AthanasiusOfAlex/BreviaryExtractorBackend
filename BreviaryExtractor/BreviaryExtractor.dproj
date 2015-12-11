@@ -98,7 +98,6 @@
     </None>
     <None Include="resources\downloader.py">
       <DeployService-Deploy>True</DeployService-Deploy>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="resources\downloader-cleanup.sh" />
     <None Include="resources\downloader-compile.sh" />
