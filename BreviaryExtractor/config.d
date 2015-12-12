@@ -34,11 +34,6 @@ enum Hora
 	complines
 }
 
-//string resourceOutputFolder()
-//{
-//	return buildPath(getCurrentWorkingFolder(), resourceFolder);
-//}
-
 string horaFullTitle(Hora hora, Language language)
 {
 	string[string] titles = [
