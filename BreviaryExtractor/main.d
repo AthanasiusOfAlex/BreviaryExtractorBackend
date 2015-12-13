@@ -18,50 +18,13 @@ import progressindicator;
 
 int main(string[] args)
 {
-	version(none)
-	{
-		import breviarydownloader;
-
-		auto breviaryDownloader = new BreviaryDownloader(1, Languages.en);
-//		auto breviaryDownloader = new BreviaryDownloader(1, languages.en, "/Users/lmelahn/Desktop/testoutput.html",true, std.datetime.Date(2015, 5, 17));
-
-		if (breviaryDownloader.status!=0)
-		{
-			stderr.writeln(breviaryDownloader.message);
-		}
-
-		return breviaryDownloader.status;
-	}
-
-	version(none)
-	{
-		import processcommandline;
-
-		Options opt;
-		opt.mLanguage = Languages.en;
-		writeln(opt.mLanguage);
-
-		opt.mLanguage = Languages.fr;
-		writeln(opt.mLanguage);
-
-		return 0;
-	}
-
-	version(none)
-	{
-		import processcommandline;
-
-		auto opt = new Options(args);
-
-		foreach(i, property; opt.tupleof)
-		{
-			writefln("%d: %s, %s", i, opt.tupleof[i].stringof, property);
-		}
-
-		return 0;
-	}
-
 	version(all)
+	{
+		import libtidy.test;
+
+		return test(args);
+	}
+	version(none)
 	{
 		try
 		{

@@ -1,9 +1,14 @@
 ﻿<Properties StartupItem="BreviaryExtractor/BreviaryExtractor.dproj">
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Release" />
-  <MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="BreviaryExtractor/tidy/tidy.di">
     <Files>
-      <File FileName="BreviaryExtractor/config.d" Line="16" Column="46" />
-      <File FileName="README.md" Line="3" Column="112" />
+      <File FileName="BreviaryExtractor/tidy/tidy.di" Line="1" Column="1" />
+      <File FileName="BreviaryExtractor/tidy/buffio.di" Line="1" Column="1" />
+      <File FileName="BreviaryExtractor/tidy/test.d" Line="23" Column="1" />
+      <File FileName="BreviaryExtractor/main.d" Line="21" Column="13" />
+      <File FileName="BreviaryExtractor/lm/tidyinterface.d" Line="9" Column="1" />
+      <File FileName="BreviaryExtractor/tidy/tidyenum.di" Line="109" Column="12" />
+      <File FileName="BreviaryExtractor/tidy/platform.di" Line="78" Column="9" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

@@ -1,5 +1,7 @@
 ﻿module lm.tidyinterface;
 
+pragma(lib, "tidys");
+
 import std.conv;
 import std.string;
 import std.traits;
@@ -213,18 +215,21 @@ extern (C) int tidyParseString( TidyDoc tdoc, ctmbstr content );
 extern (C) int tidyCleanAndRepair( TidyDoc tdoc );
 extern (C) int tidySaveBuffer( TidyDoc tdoc, TidyBuffer* buf );
 
+//private import libtidy.tidy;
+//private import libtidy.buffio;
+
 public:
 
 R cleanHtml(R)(R input)
 	if (isSomeString!R)
 {
-	string html = input.idup;
+	string html = input;
 	
 	auto tidyDoc = tidyCreate();
 	TidyBuffer tidyOutputBuffer;
 	
 	// Configure Tidy
-	// The flags tell Tidy to output XML and disable showing warnings
+	// The flags tell Tidy to disable showing warnings
 	auto configSuccess = //tidyOptSetBool(tidyDoc, TidyOptionId.TidyXmlOut, Bool.yes)
 		tidyOptSetBool(tidyDoc, TidyOptionId.TidyQuiet, Bool.yes) &&
 			tidyOptSetValue(tidyDoc, TidyOptionId.TidyIndentContent, "auto") &&
