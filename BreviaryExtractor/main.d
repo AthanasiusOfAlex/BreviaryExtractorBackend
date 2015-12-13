@@ -18,14 +18,14 @@ import progressindicator;
 
 int main(string[] args)
 {
-	version(all)
+	version(none)
 	{
 		import lm.tidyinterface;
 
 		tidyDiagnostic();
 		return 0;
 	}
-	version(none)
+	version(all)
 	{
 		try
 		{
