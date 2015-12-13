@@ -8,9 +8,6 @@ import std.traits;
 
 private:
 
-// NB: don't forget to put a reference to libtidy (usually /usr/lib/libtidy.so) in
-// Options -> Build -> Compiling -> Libraries.
-
 // I am just copying in manually the parts of the API from Tidy that I need.
 // The only thing I need it to do is re-arrange the code into nice, tidy(!) HTML.
 
@@ -72,6 +69,17 @@ enum Bool
 	yes
 };
 
+/** Categories of Tidy configuration options
+*/
+enum TidyConfigCategory
+{
+	TidyMarkup,          /**< Markup options: (X)HTML version, etc */
+	TidyDiagnostics,     /**< Diagnostics */
+	TidyPrettyPrint,     /**< Output layout */
+	TidyEncoding,        /**< Character encodings */
+	TidyMiscellaneous    /**< File handling, message format, etc. */
+}
+
 /** Option IDs Used to get/set option values.
 */
 enum TidyOptionId
@@ -91,8 +99,8 @@ enum TidyOptionId
     
     TidyDuplicateAttrs,  /**< Keep first or last duplicate attribute */
     TidyAltText,         /**< Default text for alt attribute */
-    
-    /* obsolete */
+
+	/* obsolete */
     TidySlideStyle,      /**< Style sheet for slides: not used for anything yet */
     
     TidyErrFile,         /**< File name to write errors to */
@@ -206,6 +214,7 @@ enum TidyOptionId
 
 
 extern (C) TidyDoc tidyCreate();
+extern (C) void tidyBufInit( TidyBuffer* buf );
 extern (C) void tidyBufFree( TidyBuffer* buf );
 extern (C) void tidyRelease( TidyDoc tdoc );
 extern (C) Bool tidyOptSetBool ( TidyDoc tdoc, TidyOptionId optId, Bool val );
@@ -214,11 +223,136 @@ extern (C) Bool tidyOptSetInt( TidyDoc tdoc, TidyOptionId optId, ulong val );
 extern (C) int tidyParseString( TidyDoc tdoc, ctmbstr content );
 extern (C) int tidyCleanAndRepair( TidyDoc tdoc );
 extern (C) int tidySaveBuffer( TidyDoc tdoc, TidyBuffer* buf );
+extern (C) int tidySetErrorBuffer( TidyDoc tdoc, TidyBuffer* errbuf );
+extern (C) int tidyRunDiagnostics( TidyDoc tdoc );
 
-//private import libtidy.tidy;
-//private import libtidy.buffio;
+/**
+ * Convert Tidy strings to their const array equivalents.
+ */
+pure nothrow inout(char)[] fromTidyString(R)(inout(R*)tidyString)
+	if (is(R==ubyte) || is(R==char) || is(R==byte))
+{
+	return fromStringz(cast(inout(char*))tidyString);
+}
 
 public:
+
+struct Tidier
+{
+	this(string input)
+	{
+		m_input = input;
+	}
+
+private:
+	string m_input;
+}
+
+R tidy(R)(R input)
+	if (isSomeString!R)
+{
+	return R();
+}
+
+void tidyDiagnostic()
+{
+	string input = "hello";
+
+	auto tidyDoc = tidyCreate();
+	//TidyBuffer tidyOutputBuffer;  // No need for a buffer in this diagnostic.
+
+	scope(exit) {
+		// Free the memory when this exits.
+		//tidyBufFree(&tidyOutputBuffer);
+		tidyRelease(tidyDoc);
+	}
+
+	import std.traits;
+	import std.stdio;
+
+	auto rc = tidyParseString( tidyDoc, input.toStringz );
+	//rc = tidySaveBuffer( tidyDoc, &tidyOutputBuffer );
+
+	foreach (e; [EnumMembers!TidyOptionId])
+	{
+		try {
+			tidyOptSetBool(tidyDoc, e, Bool.yes);
+		}
+		catch
+		{
+			write("FAIL! ");
+		}
+		writefln("%s, %d", e, e);
+	}
+}
+
+int tidyTest()
+{
+	import std.stdio;
+
+	string input = "<title>Foo</title><p>Foo!";
+
+	TidyBuffer output;
+	TidyBuffer errbuf;
+
+	int rc = -1;
+
+	TidyDoc tdoc = tidyCreate();                     // Initialize "document"
+	tidyBufInit( &output );
+	tidyBufInit( &errbuf );
+
+	scope(exit)
+	{
+		tidyBufFree( &output );
+		tidyBufFree( &errbuf );
+		tidyRelease( tdoc );
+	}
+
+	writefln("Tidying:\t%s\n", input );
+	auto ok = tidyOptSetBool( tdoc, TidyOptionId.TidyXhtmlOut, Bool.yes );  // Convert to XHTML
+
+	if ( ok )
+	{
+		rc = tidySetErrorBuffer( tdoc, &errbuf );      // Capture diagnostics
+	}
+	if ( rc >= 0 )
+	{
+		rc = tidyParseString( tdoc, input.toStringz );           // Parse the input
+	}
+	if ( rc >= 0 )
+	{
+		rc = tidyCleanAndRepair( tdoc );               // Tidy it up!
+	}
+	if ( rc >= 0 )
+	{
+		rc = tidyRunDiagnostics( tdoc );               // Find any errors.
+	}
+	if ( rc > 1 )                                      // If error, force output.
+	{
+		rc = ( tidyOptSetBool(tdoc, TidyOptionId.TidyForceOutput, Bool.yes) ? rc : -1 );
+	}
+	if ( rc >= 0 )
+	{
+		rc = tidySaveBuffer( tdoc, &output );          // Pretty Print
+	}
+	if ( rc >= 0 )
+	{
+		if ( rc > 0 )
+		{
+			writef( "\nDiagnostics:\n\n%s", fromTidyString(errbuf.bp) );
+		}
+		writef( "\nAnd here is the result:\n\n%s", fromTidyString(output.bp) );
+	}
+	else
+	{
+		writefln( "A severe error (%d) occurred.", rc );
+	}
+
+	return rc;
+}
+
+
+
 
 R cleanHtml(R)(R input)
 	if (isSomeString!R)
@@ -227,10 +361,17 @@ R cleanHtml(R)(R input)
 	
 	auto tidyDoc = tidyCreate();
 	TidyBuffer tidyOutputBuffer;
-	
+
+	scope(exit)
+	{
+		// Free the memory.
+		tidyBufFree(&tidyOutputBuffer);
+		tidyRelease(tidyDoc);
+	}
+
 	// Configure Tidy
 	// The flags tell Tidy to disable showing warnings
-	auto configSuccess = //tidyOptSetBool(tidyDoc, TidyOptionId.TidyXmlOut, Bool.yes)
+	auto configSuccess = // tidyOptSetBool(tidyDoc, TidyOptionId.TidyXmlOut, Bool.yes)
 		tidyOptSetBool(tidyDoc, TidyOptionId.TidyQuiet, Bool.yes) &&
 			tidyOptSetValue(tidyDoc, TidyOptionId.TidyIndentContent, "auto") &&
 			tidyOptSetBool(tidyDoc, TidyOptionId.TidyNumEntities, Bool.yes) &&
@@ -266,9 +407,5 @@ R cleanHtml(R)(R input)
 	// Grab the result from the buffer and then free Tidy's memory
 	string result = (cast(char*)tidyOutputBuffer.bp).to!string;
 
-	// Free the memory.
-	tidyBufFree(&tidyOutputBuffer);
-	tidyRelease(tidyDoc);
-	
 	return result;
 }

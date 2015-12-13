@@ -20,9 +20,10 @@ int main(string[] args)
 {
 	version(all)
 	{
-		import libtidy.test;
+		import lm.tidyinterface;
 
-		return test(args);
+		tidyDiagnostic();
+		return 0;
 	}
 	version(none)
 	{
