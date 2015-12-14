@@ -16,13 +16,24 @@ import filemanager;
 import processcommandline;
 import progressindicator;
 
+
 int main(string[] args)
 {
 	version(none)
 	{
 		import lm.tidyinterface;
 
-		tidyDiagnostic();
+		auto tidyDocument = TidyDocument("<title>gooblah</title>asdasdf <em>asdfsadf<strong>asdasdf</em>asdfasd</strong>");
+
+		tidyDocument.indentContent = TidyAutoBool.automatic;
+		tidyDocument.wrapLen = 0;
+
+		writeln(tidyDocument.output);
+
+//		char[] gg;
+//		gg ~= "asdasdfasdfasdf";
+//		auto tidyDoc2 = TidyDocument(gg);
+
 		return 0;
 	}
 	version(all)
