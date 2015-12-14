@@ -1,9 +1,9 @@
 ﻿<Properties StartupItem="BreviaryExtractor/BreviaryExtractor.dproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="BreviaryExtractor/lm/tidyinterface.d">
+  <MonoDevelop.Ide.Workbench>
     <Files>
-      <File FileName="BreviaryExtractor/lm/tidyinterface.d" Line="292" Column="14" />
-      <File FileName="BreviaryExtractor/main.d" Line="21" Column="15" />
+      <File FileName="BreviaryExtractor/lm/tidyinterface.d" Line="378" Column="8" />
+      <File FileName="BreviaryExtractor/main.d" Line="39" Column="13" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
