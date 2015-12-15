@@ -23,7 +23,7 @@ string downloadHour(Date date, Hora hora, Language language)
 	import std.format;
 	import std.path;
 	import std.process;
-	import lm.tidyinterface;
+	import lm.tidydocument;
 	import lm.userfolders;
 
 

@@ -2,7 +2,7 @@
 
 import arsd.dom;
 import lm.domhelper;
-import lm.tidyinterface;
+import lm.tidydocument;
 
 import config;
 
@@ -26,7 +26,7 @@ string prepareHtml(string input)
 	return document.toString.cleanHtml;
 }
 
-string cleanHtml(string input)
-{
-	return lm.tidyinterface.cleanHtml(input);
-}
+//string cleanHtml(string input)
+//{
+//	return lm.tidydocument.cleanHtml(input);
+//}

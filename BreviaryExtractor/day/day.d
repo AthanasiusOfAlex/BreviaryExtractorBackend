@@ -9,6 +9,7 @@ import std.traits;
 import arsd.dom;
 import lm.datehelper;
 import lm.domhelper;
+import lm.tidydocument:cleanHtml;
 
 import config;
 import hour;

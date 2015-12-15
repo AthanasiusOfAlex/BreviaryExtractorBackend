@@ -6,6 +6,7 @@ import std.path;
 import std.traits;
 
 import lm.userfolders;
+import lm.tidydocument;
 
 import config;
 import processcommandline;
@@ -79,7 +80,6 @@ enum ConvertToMobi
 	yes,
 	no
 }
-
 
 enum CleanDataFiles
 {

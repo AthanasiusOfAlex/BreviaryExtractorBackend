@@ -21,7 +21,7 @@ int main(string[] args)
 {
 	version(none)
 	{
-		import lm.tidyinterface;
+		import lm.tidydocument;
 
 		auto tidyDocument = TidyDocument("<title>gooblah</title>asdasdf <em>asdfsadf<strong>asdasdf</em>asdfasd</strong>");
 
@@ -30,9 +30,12 @@ int main(string[] args)
 
 		writeln(tidyDocument.output);
 
-//		char[] gg;
-//		gg ~= "asdasdfasdfasdf";
-//		auto tidyDoc2 = TidyDocument(gg);
+		auto g = "asfasdfasdfasdfasdfasdf".dup;
+		auto h = g.toStringz;
+
+		import std.traits;
+
+		writefln("%s %s %s", typeof(g).stringof, typeof(h).stringof, h);
 
 		return 0;
 	}
