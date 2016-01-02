@@ -1,6 +1,6 @@
 ﻿<Properties StartupItem="BreviaryExtractor/BreviaryExtractor.dproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Release" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="BreviaryExtractor/lm/tidyinterface.d">
+  <MonoDevelop.Ide.Workbench>
     <Files>
       <File FileName="BreviaryExtractor/lm/tidyinterface.d" Line="1" Column="1" />
       <File FileName="BreviaryExtractor/lm/tidydocument.d" Line="1" Column="1" />
