@@ -98,3 +98,27 @@ R simpleReplaceAll(string Re, string replacement, R)(R input)
 {
 	return replaceAll(input, ctRegex!(Re, "s"), replacement);
 }
+
+R[] splitFirst(R, S)(R input, S delimiter)
+	if (isSomeString!R && (is(S==Regex!char) || is(S==StaticRegex!char) || isSomeString!S))
+{
+	static if (is(S==Regex!char) || is(S==StaticRegex!char))
+	{
+		auto delimeterRegex = delimiter;
+	}
+	else
+	{
+		auto delimeterRegex = regex(delimiter);
+	}
+
+	auto captures = matchFirst(input, delimeterRegex);
+
+	if (!captures.empty)
+	{
+		return [captures.pre, captures.post];
+	}
+	else
+	{
+		return [input];
+	}
+}

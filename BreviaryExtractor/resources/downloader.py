@@ -12,61 +12,72 @@ optionsURI = baseURI + "opzioni.php"
 hourURI = rootURI + "?s="
 
 hours =  { 'options'  : optionsURI,
-           'base'     : rootURI,
-           'lauds'    : hourURI + "lodi",
-           'morning'  : hourURI + "lodi",
-           'office'   : hourURI + "ufficio_delle_letture",
-           'midday'   : hourURI + "ora_media",
-           'daytime'  : hourURI + "ora_media",
-           'vespers'  : hourURI + "vespri",
-           'evening'  : hourURI + "vespri",
-           'complines': hourURI + "compieta" }
+			'base'     : rootURI,
+			'lauds'    : hourURI + "lodi",
+			'morning'  : hourURI + "lodi",
+			'office'   : hourURI + "ufficio_delle_letture",
+			'midday'   : hourURI + "ora_media",
+			'daytime'  : hourURI + "ora_media",
+			'vespers'  : hourURI + "vespri",
+			'evening'  : hourURI + "vespri",
+			'complines': hourURI + "compieta" }
 
-if len(sys.argv) == 7:
-  fileName = sys.argv[1]
-  year     = sys.argv[2]
-  month    = sys.argv[3]
-  day      = sys.argv[4]
-  language = sys.argv[5]
-  hour     = sys.argv[6]
+def downloadHour(year, month, day, language, hour):
+	with warnings.catch_warnings():
+		warnings.simplefilter("ignore")
+		browser = RoboBrowser(history=True)
 
-  try:
-    with warnings.catch_warnings():
-      warnings.simplefilter("ignore")
-      browser = RoboBrowser(history=True)
+		# Set the iBreviary options
+		browser.open(optionsURI)
 
-      # Set the iBreviary options
-      browser.open(optionsURI)
-      
-      optionsForm = browser.get_form(action='/m2/opzioni.php')
-  
-      optionsForm["anno"] = year
-      optionsForm["giorno"] = day
-      optionsForm["mese"] = month
-      optionsForm["lang"] = language
-      browser.submit_form(optionsForm)
+		optionsForm = browser.get_form(action='/m2/opzioni.php')
 
-      # Now download the desired hour.
-      browser.open(hours[hour])
+		optionsForm["anno"] = year
+		optionsForm["giorno"] = day
+		optionsForm["mese"] = month
+		optionsForm["lang"] = language
+		browser.submit_form(optionsForm)
 
-      if fileName=="-":
-        outputFile = sys.stdout
-      else:
-        outputFile = open(fileName, "w")
-  
-      # Write its contents to the output file.  
-      try:
-        # To avoid problems with stdout, convert first to byte array,
-        # then write to file.
-        outputBytes = bytes(str(browser.parsed), 'utf-8')
-        outputFile.buffer.write(outputBytes)
+		# Now download the desired hour.
+		browser.open(hours[hour])
+		  
+		# Return the output as a string, making sure it is terminated by a newline.
+		return str(browser.parsed)
 
-      finally:
-        outputFile.close
+def parseInstruction(arguments):
+	assert arguments[0]=="download", "Instruction must begin with `download`."
 
-  except Exception as ex:
-    print ("EXC: ", ex, file=sys.stderr)
-    sys.exit(5)
+	if len(arguments)!=6:
+		raise Exception("Instruction must have six arguments (`download`, year, month, day, language, hour). " + str(len(arguments)) + " were given.")
 
-else:
-  print("Usage: ", sys.argv[0], " output-file year month day language hour\n\nUse - for output-file if writing to standard output.", file=sys.stderr)
+	return tuple(arguments[1:6])
+
+def sanitizeOutput(input):
+	regex = re.compile( '\s+')
+	return 'HTML:' + regex.sub(' ', input) + '\n'
+
+try:
+	for line in sys.stdin:
+		arguments = line.split()
+
+		if arguments[0]=="download":
+			year, month, day, language, hour = parseInstruction(arguments)
+
+			output = downloadHour(year, month, day, language, hour)
+			output = sanitizeOutput(output)
+
+			sys.stdout.buffer.write(bytes(output, 'utf-8'))
+			sys.stdout.flush()
+
+		elif arguments[0]=="quit":
+			sys.stdout.write("DONE\n")
+			break
+
+		else:
+			raise Exception("Unknown input: " + line.strip() + '\n')
+
+except Exception as ex:
+	sys.stdout.write("EXC: " + str(ex) + '\n')
+	sys.stdout.flush()
+
+sys.stdout.flush()

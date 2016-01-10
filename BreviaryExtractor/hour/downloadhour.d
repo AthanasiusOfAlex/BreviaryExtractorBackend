@@ -23,43 +23,65 @@ string downloadHour(Date date, Hora hora, Language language)
 	import std.format;
 	import std.path;
 	import std.process;
+	import std.range;
 	import lm.tidydocument;
+	import lm.regexhelper;
 	import lm.userfolders;
-
-
 
 	if (!exists(downloadExecutible))
 	{
 		throw new Exception(format(`%s, does not exist. Please reinstall.`, downloadExecutible));
 	}
-	
-	// Download the hour.
-	auto shellCommand = format(
-		`%s %s %s %s %s %s %s`,
-		downloadExecutible,
-		`-`,
+
+	// This argument will retrieve the desired hour.
+	auto argument = format(
+		`download %s %s %s %s %s`,
 		date.year,
 		date.month.to!uint,
 		date.day,
 		language,
 		hora);
+	
+	// Set up the process.
+	auto pipes = pipeProcess(downloadExecutible, Redirect.all);
+	scope(exit) wait(pipes.pid);
 
-	auto downloadProcess = executeShell(shellCommand);
-	
-	if (downloadProcess.status == 5)
+	// Send it in to the scraper and close the stream.
+	pipes.stdin.writeln(argument);
+	pipes.stdin.close;
+
+	string result="";
+	foreach(line; pipes.stdout.byLine)
 	{
-		throw new Exception(format(`Unable to access the Internet. Output: %s`, downloadProcess.output));
+		pipes.stdout.flush;
+
+		auto splitLine = line.splitFirst(`:\s*`);
+		assert(!splitLine.empty);
+
+		if (splitLine.front=="HTML")
+		{
+			splitLine.popFront;
+			if (!splitLine.empty)
+			{
+				result = splitLine.front;
+			}
+			break;
+		}
+		else if (splitLine.front=="EXC")
+		{
+			splitLine.popFront;
+			if (!splitLine.empty)
+			{
+				throw new Exception(splitLine.front);
+			}
+			else
+			{
+				throw new Exception("Unspecified error given by downloader application.");
+			}
+		}
 	}
-	else if (downloadProcess.status != 0)
-	{
-		throw new Exception(format(
-				`Downloader returned status %s and could not be run.\nOutput: %s`,
-				downloadProcess.status,
-				downloadProcess.output));
-	}
-	// downloadprocess.status == 0.
-	
-	return downloadProcess.output;
+
+	return result;
 }
 
 
