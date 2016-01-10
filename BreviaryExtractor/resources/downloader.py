@@ -22,9 +22,6 @@ hours =  { 'options'  : optionsURI,
            'evening'  : hourURI + "vespri",
            'complines': hourURI + "compieta" }
 
-# for arg in sys.argv:
-#   print arg
-                    
 if len(sys.argv) == 7:
   fileName = sys.argv[1]
   year     = sys.argv[2]
@@ -68,7 +65,7 @@ if len(sys.argv) == 7:
         outputFile.close
 
   except Exception as ex:
-    print ("EXC: ", ex, sys.stderr)
+    print ("EXC: ", ex, file=sys.stderr)
     sys.exit(5)
 
 else:
