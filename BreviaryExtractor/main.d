@@ -17,7 +17,23 @@ import filemanager;
 import processcommandline;
 import progressindicator;
 
+void main()
+{
+	import std.datetime;
 
+	auto downloader = new Downloader;
+	scope(exit) downloader.close;
+
+	foreach(i; 1..10)
+	{
+		foreach(j; 1..10)
+		{
+			downloader.downloadHour(Date(2016, i, j), Hora.daytime, Language.en).writeln;
+		}
+	}
+}
+
+version(none){
 int main(string[] args)
 {
 	try
@@ -78,4 +94,4 @@ int main(string[] args)
 	cleanUpFolder(options.saveToFolder);
 
 	return 0;
-}
+	}}
