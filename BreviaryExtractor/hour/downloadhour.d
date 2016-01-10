@@ -11,6 +11,11 @@ import std.datetime;
 
 import config;
 
+class Downloader
+{
+	string downloadHour(Date date, Hora hora, Language language){return "";}
+}
+
 /**
  * Returns the raw hour from the website,
  * based on a date and an hour.

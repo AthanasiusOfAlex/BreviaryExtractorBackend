@@ -9,6 +9,7 @@ import lm.userfolders;
 import lm.tidydocument;
 
 import config;
+import downloadhour;
 import processcommandline;
 
 immutable earliestDate = Date(1970, Month.jan, 1);
@@ -25,6 +26,7 @@ immutable cssFile = buildPath(`breviarystyle.css`);
 immutable cssFileTemplate = buildPath(resourceFolder, cssFile);
 
 public Options options;
+public Downloader downloader;
 
 enum Hora
 {
