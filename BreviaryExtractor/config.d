@@ -154,3 +154,10 @@ private R advanceInEnum(R)(R currentEnum, int increment)
 	// Putting [] around it converts it into an array, avoiding the problem.
 	return [EnumMembers!R][currentEnumIdx];
 }
+
+public mixin template ExceptionCtorMixin() {
+	this(string msg = null, Throwable next = null) { super(msg, next); }
+	this(string msg, string file, size_t line, Throwable next = null) {
+		super(msg, file, line, next);
+	}
+}
