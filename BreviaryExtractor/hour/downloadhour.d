@@ -185,6 +185,8 @@ void manageExternalProcess()
 	catch (OwnerTerminated exc)
 	{
 		// No need to do anything if the owner does not exist. Just exit.
+		// (This catch is necessary to avoid attempting to message the
+		// owner when it no longer exists.)
 	}
 	catch (shared(Exception) exc)
 	{

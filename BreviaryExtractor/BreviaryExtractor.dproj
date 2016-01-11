@@ -21,7 +21,7 @@
     <DebugLevel>0</DebugLevel>
     <ConsolePause>false</ConsolePause>
     <ExtraLinkerArguments>-Llib</ExtraLinkerArguments>
-    <Commandlineparameters>--saveToFolder=/Users/lmelahn/Desktop/iBreviary --language=en --numberOfDays=1</Commandlineparameters>
+    <Commandlineparameters>--saveToFolder=/Users/lmelahn/Desktop/iBreviary --language=en --numberOfDays=3</Commandlineparameters>
     <CustomCommands>
       <CustomCommands>
         <Command type="AfterBuild" command="bash -c 'resources/downloader-compile.sh ${ProjectDir} Debug'" workingdir="" />

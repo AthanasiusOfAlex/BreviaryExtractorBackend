@@ -1,10 +1,10 @@
 ﻿<Properties StartupItem="BreviaryExtractor/BreviaryExtractor.dproj">
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Release" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="BreviaryExtractor/hour/downloadhour.d">
     <Files>
-      <File FileName="BreviaryExtractor/hour/downloadhour.d" Line="95" Column="1" />
-      <File FileName="BreviaryExtractor/hour/hour.d" Line="176" Column="17" />
-      <File FileName="BreviaryExtractor/main.d" Line="29" Column="12" />
+      <File FileName="BreviaryExtractor/hour/downloadhour.d" Line="158" Column="20" />
+      <File FileName="BreviaryExtractor/main.d" Line="1" Column="1" />
+      <File FileName="BreviaryExtractor/config.d" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
