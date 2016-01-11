@@ -196,73 +196,12 @@ void manageExternalProcess()
 
 public:
 /**
- * DEPRECATED
- * Returns the raw hour from the website,
+ * A convenience function that 
+ * returns the raw hour from the website,
  * based on a date and an hour.
  * There is no processing done.
  */
 string downloadHour(Date date, Hora hora, Language language)
 {
-	import std.conv;
-	import std.file;
-	import std.path;
-	import std.process;
-	import std.range;
-	import std.string;
-	import lm.regexhelper;
-
-	if (!exists(downloadExecutible))
-	{
-		throw new DownloaderException(format(`%s, does not exist. Please reinstall.`, downloadExecutible));
-	}
-
-	// This argument will retrieve the desired hour.
-	auto argument = format(
-		`download %s %s %s %s %s`,
-		date.year,
-		date.month.to!uint,
-		date.day,
-		language,
-		hora);
-
-	// Set up the process.
-	auto pipes = pipeProcess(downloadExecutible, Redirect.all);
-	scope(exit) wait(pipes.pid);
-
-	// Send it in to the scraper and close the stream.
-	pipes.stdin.writeln(argument);
-	pipes.stdin.close;
-
-	string result="";
-	foreach(line; pipes.stdout.byLine)
-	{
-		pipes.stdout.flush;
-
-		auto splitLine = line.splitFirst(`:\s*`);
-		assert(!splitLine.empty);
-
-		if (splitLine.front=="HTML")
-		{
-			splitLine.popFront;
-			if (!splitLine.empty)
-			{
-				result = splitLine.front;
-			}
-			break;
-		}
-		else if (splitLine.front=="EXC")
-		{
-			splitLine.popFront;
-			if (!splitLine.empty)
-			{
-				throw new DownloaderException(splitLine.front);
-			}
-			else
-			{
-				throw new DownloaderException("Unspecified error given by downloader application.");
-			}
-		}
-	}
-
-	return result;
+	return downloader.downloadHour(date, hora, language);
 }
