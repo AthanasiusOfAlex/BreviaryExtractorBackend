@@ -1,6 +1,7 @@
 ﻿module lm.tidydocument;
 
 private import std.algorithm.iteration;
+private import std.array;
 private import std.conv;
 private import std.string;
 private import std.traits;
@@ -363,7 +364,7 @@ private string lastMember(string input)
 	}
 	else
 	{
-		return parts.back;
+		return parts.array.back;
 	}
 }
 

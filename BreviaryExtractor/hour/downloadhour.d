@@ -140,6 +140,7 @@ private:
 private:
 void manageExternalProcess()
 {
+	import std.algorithm.iteration;
 	import std.process;
 	import std.range;
 

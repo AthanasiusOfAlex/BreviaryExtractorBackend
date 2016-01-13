@@ -6,6 +6,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{D4BF29E6-B891-4B5F-BDA2-B42097BE2F34}"
 	ProjectSection(SolutionItems) = preProject
 		BreviaryExtractor\kindlegen = BreviaryExtractor\kindlegen
+		dub.sdl = dub.sdl
 	EndProjectSection
 EndProject
 Global

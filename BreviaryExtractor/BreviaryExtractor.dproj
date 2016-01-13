@@ -108,6 +108,9 @@
     </None>
     <None Include="lib\libtidys.a" />
     <None Include="lib\LICENSE.txt" />
+    <None Include="..\dub.sdl">
+      <Link>dub.sdl</Link>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="lm\" />
