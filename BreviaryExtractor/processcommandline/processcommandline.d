@@ -53,7 +53,7 @@ class Options {
 
 private:
 	Language mLanguage = Language.en;
-	int mNumberOfDays = 30;
+	int mNumberOfDays = defaultNumberOfDays;
 	Date mStartDate;
 	PackageBy mPackageBy = PackageBy.day;
 	string mSaveToFolder;

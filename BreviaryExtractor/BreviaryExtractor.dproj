@@ -98,11 +98,6 @@
     <None Include="resources\toc.ncx.template">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="resources\downloader.py">
-      <DeployService-Deploy>True</DeployService-Deploy>
-    </None>
-    <None Include="resources\downloader-cleanup.sh" />
-    <None Include="resources\downloader-compile.sh" />
     <None Include="..\README.md">
       <Link>README.md</Link>
     </None>
@@ -110,6 +105,13 @@
     <None Include="lib\LICENSE.txt" />
     <None Include="..\dub.sdl">
       <Link>dub.sdl</Link>
+    </None>
+    <None Include="scripts\downloader-cleanup.sh" />
+    <None Include="scripts\downloader-compile.sh" />
+    <None Include="scripts\downloader-compile-dub.sh" />
+    <None Include="scripts\downloader-move-files-dub.sh" />
+    <None Include="scripts\downloader.py">
+      <DeployService-Deploy>True</DeployService-Deploy>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -124,5 +126,6 @@
     <Folder Include="processcommandline\" />
     <Folder Include="resources\" />
     <Folder Include="lib\" />
+    <Folder Include="scripts\" />
   </ItemGroup>
 </Project>

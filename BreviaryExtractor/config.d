@@ -12,6 +12,7 @@ import config;
 import downloadhour;
 import processcommandline;
 
+immutable defaultNumberOfDays = 5;
 immutable earliestDate = Date(1970, Month.jan, 1);
 immutable countStarting = CountStarting.today;
 immutable convertToMobi = ConvertToMobi.yes;

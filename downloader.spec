@@ -3,8 +3,8 @@
 block_cipher = None
 
 
-a = Analysis(['downloader.py'],
-             pathex=['/Users/lmelahn/GitHub/BreviaryExtractorBackend/BreviaryExtractor/resources'],
+a = Analysis(['/Users/lmelahn/GitHub/BreviaryExtractorBackend/BreviaryExtractor/resources/downloader.py'],
+             pathex=['/Users/lmelahn/GitHub/BreviaryExtractorBackend'],
              binaries=None,
              datas=None,
              hiddenimports=[],

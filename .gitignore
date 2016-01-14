@@ -6,3 +6,5 @@ __dummy.html
 *.o
 *.obj
 bin/**
+obj/**
+bin/breviaryextractor
