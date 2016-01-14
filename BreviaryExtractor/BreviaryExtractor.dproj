@@ -8,7 +8,7 @@
     <PreferOneStepBuild>true</PreferOneStepBuild>
     <UseDefaultCompiler>true</UseDefaultCompiler>
     <IncrementalLinking>true</IncrementalLinking>
-    <ReleaseVersion>0.2</ReleaseVersion>
+    <ReleaseVersion>0.3</ReleaseVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -24,8 +24,8 @@
     <Commandlineparameters>--saveToFolder=/Users/lmelahn/Desktop/iBreviary --language=en --numberOfDays=3</Commandlineparameters>
     <CustomCommands>
       <CustomCommands>
-        <Command type="AfterBuild" command="bash -c 'resources/downloader-compile.sh ${ProjectDir} Debug'" workingdir="" />
-        <Command type="AfterClean" command="bash -c 'resources/downloader-cleanup.sh ${ProjectDir} Debug'" />
+        <Command type="BeforeBuild" command="bash -c &quot;scripts/downloader-compile.sh ${ProjectDir} Debug&quot;" />
+        <Command type="AfterClean" command="bash -c &quot;scripts/downloader-cleanup.sh ${ProjectDir} Debug&quot;" />
       </CustomCommands>
     </CustomCommands>
   </PropertyGroup>
@@ -38,14 +38,14 @@
     <Target>Executable</Target>
     <DebugLevel>0</DebugLevel>
     <ConsolePause>false</ConsolePause>
-    <CustomCommands>
-      <CustomCommands>
-        <Command type="AfterBuild" command="bash -c 'resources/downloader-compile.sh ${ProjectDir} Release'" />
-        <Command type="AfterClean" command="bash -c 'resources/downloader-cleanup.sh ${ProjectDir} Release'" />
-      </CustomCommands>
-    </CustomCommands>
     <Commandlineparameters>--saveToFolder=/Users/lmelahn/Desktop/iBreviary --language=en --numberOfDays=3</Commandlineparameters>
     <ExtraLinkerArguments>-Llib</ExtraLinkerArguments>
+    <CustomCommands>
+      <CustomCommands>
+        <Command type="BeforeBuild" command="bash -c &quot;scripts/downloader-compile.sh ${ProjectDir} Release&quot;" />
+        <Command type="AfterClean" command="bash -c &quot;scripts/downloader-cleanup.sh ${ProjectDir} Release&quot;" />
+      </CustomCommands>
+    </CustomCommands>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Unittest|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>

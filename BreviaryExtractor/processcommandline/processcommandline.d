@@ -1,14 +1,13 @@
 ﻿module processcommandline;
 
-import std.algorithm.iteration;
+import std.algorithm.iteration: splitter;
 import std.datetime;
-import std.getopt;
-import std.path;
-import std.range;
+import std.getopt: getopt;
+import std.path: expandTilde;
+import std.range: empty, array, back, take;
 
 import lm.userfolders;
 
-import publicenums;
 import config;
 
 class Options {
@@ -62,8 +61,6 @@ private:
 
 	Date toDate(string input)
 	{
-		import std.range;
-		
 		int year, month, day;
 		
 		foreach(i, field; input.splitter("-").take(3).array)
@@ -116,8 +113,7 @@ private Date tomorrow()
 
 private string baseName(string fullName)
 {
-	import std.algorithm;
-	return fullName.splitter(".").back.splitter("(").front;
+	return fullName.splitter(".").array.back.splitter("(").front;
 }
 
 private int forceToInt(string input)
