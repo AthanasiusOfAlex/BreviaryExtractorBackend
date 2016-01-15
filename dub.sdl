@@ -4,8 +4,21 @@ copyright "Copyright © 2016, Louis Melahn"
 authors "Louis Melahn"
 license "GPL-3.0 or later"
 sourcePaths "BreviaryExtractor"
-libs "tidys"
-lflags "-LBreviaryExtractor/lib"
 copyFiles "BreviaryExtractor/resources"
-targetPath "bin"
-preBuildCommands "BreviaryExtractor/scripts/downloader-compile-dub.sh $ROOT_PACKAGE_DIR BreviaryExtractor"
+
+configuration "osx" {
+  targetType "executable"
+  platforms "osx"
+  libs "tidys"
+  targetPath "bin/osx"
+  preBuildCommands "BreviaryExtractor/scripts/downloader-compile-osx.sh $ROOT_PACKAGE_DIR BreviaryExtractor"
+  lflags "-LBreviaryExtractor/lib"
+}
+
+configuration "windows" {
+  targetType "executable"
+  platforms "windows"
+  libs "tidy"
+  targetPath "bin\\windows"
+  preBuildCommands "BreviaryExtractor\\scripts\\downloader-compile-windows.bat $ROOT_PACKAGE_DIR BreviaryExtractor"
+}

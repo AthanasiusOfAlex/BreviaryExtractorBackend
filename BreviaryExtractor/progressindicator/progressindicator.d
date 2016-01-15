@@ -126,12 +126,16 @@ class ProgressStdout : ProgressDisplayDriver
 		{
 			newMarkCount = mMaxMarks;
 		}
-		
+
 		if (newMarkCount > mCurrentMarkCount)	// Only bother doing anything if more marks need to be drawn.
 		{
-			import std.array;
+			string markString = "";
+			foreach (i; 0..newMarkCount - mCurrentMarkCount)
+			{
+				markString ~= mMark;
+			}
 
-			write(replicate(mMark, newMarkCount-mCurrentMarkCount));
+			write(markString);
 
 			stdout.flush;
 			mCurrentMarkCount = newMarkCount;

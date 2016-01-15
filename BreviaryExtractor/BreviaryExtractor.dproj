@@ -86,9 +86,6 @@
     <Compile Include="lm\tidydocument.d" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="resources\kindlegen">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <None Include="resources\breviarystyle.css">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -108,11 +105,16 @@
     </None>
     <None Include="scripts\downloader-cleanup.sh" />
     <None Include="scripts\downloader-compile.sh" />
-    <None Include="scripts\downloader-compile-dub.sh" />
-    <None Include="scripts\downloader-move-files-dub.sh" />
     <None Include="scripts\downloader.py">
       <DeployService-Deploy>True</DeployService-Deploy>
     </None>
+    <None Include="scripts\downloader-compile-osx.sh" />
+    <None Include="scripts\kindlegen.exe" />
+    <None Include="scripts\kindlegen">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="scripts\downloader-compile-windows.bat" />
+    <None Include="scripts\tidy.dll" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="lm\" />

@@ -19,8 +19,21 @@ immutable convertToMobi = ConvertToMobi.yes;
 immutable cleanDataFiles = CleanDataFiles.yes;
 immutable resourceFolder = `resources`;
 
-immutable kindleGenExecutable = buildPath(resourceFolder, `kindlegen`);
-immutable downloadExecutible = buildPath(resourceFolder, `downloader`);
+version(Windows)
+{
+	immutable kindleGenExecutable = buildPath(resourceFolder, `kindlegen.exe`);
+	immutable downloadExecutible = buildPath(resourceFolder, `downloader.exe`);
+}
+else version(Posix)
+{
+	immutable kindleGenExecutable = buildPath(resourceFolder, `kindlegen`);
+	immutable downloadExecutible = buildPath(resourceFolder, `downloader`);
+}
+else
+{
+	static assert(false, "Unsupported operating system.");
+}
+
 immutable opfTemplate = buildPath(resourceFolder, `metadata.opf.template`);
 immutable tocTemplate = buildPath(resourceFolder, `toc.ncx.template`);
 immutable cssFile = buildPath(`breviarystyle.css`);

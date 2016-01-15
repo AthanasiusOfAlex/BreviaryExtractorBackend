@@ -1,6 +1,18 @@
 ﻿module lm.tidyinterface;
 
-pragma(lib, "tidys");
+version(Windows)
+{
+	pragma(lib, "tidy");
+}
+else version(Posix)
+{
+	pragma(lib, "tidys");
+}
+else
+{
+	static assert(false, "Unsupported operating system.");
+}
+
 
 import std.conv;
 import std.string;
@@ -36,21 +48,21 @@ struct _TidyAllocatorVtbl {
 	/** Called to allocate a block of nBytes of memory */
 	void* function( TidyAllocator *self, size_t nBytes ) alloc;
 	/** Called to resize (grow, in general) a block of memory.
-	 Must support being called with NULL.
-	 */
+	Must support being called with NULL.
+	*/
 	void* function( TidyAllocator *self, void *block, size_t nBytes ) realloc;
 	/** Called to free a previously allocated block of memory */
 	void function( TidyAllocator *self, void *block) free;
 	/** Called when a panic condition is detected.  Must support
-	 block == NULL.  This function is not called if either alloc 
-	 or realloc fails; it is up to the allocator to do this.
-	 Currently this function can only be called if an error is
-	 detected in the tree integrity via the internal function
-	 CheckNodeIntegrity().  This is a situation that can
-	 only arise in the case of a programming error in tidylib.
-	 You can turn off node integrity checking by defining
-	 the constant NO_NODE_INTEGRITY_CHECK during the build.
-	 **/
+	block == NULL.  This function is not called if either alloc 
+	or realloc fails; it is up to the allocator to do this.
+	Currently this function can only be called if an error is
+	detected in the tree integrity via the internal function
+	CheckNodeIntegrity().  This is a situation that can
+	only arise in the case of a programming error in tidylib.
+	You can turn off node integrity checking by defining
+	the constant NO_NODE_INTEGRITY_CHECK during the build.
+	**/
 	void function( TidyAllocator *self, ctmbstr msg ) panic;
 };
 
@@ -68,7 +80,7 @@ enum Bool
 };
 
 /** Categories of Tidy configuration options
- */
+*/
 enum TidyConfigCategory
 {
 	TidyMarkup,          /**< Markup options: (X)HTML version, etc */
@@ -79,7 +91,7 @@ enum TidyConfigCategory
 }
 
 /** Option IDs Used to get/set option values.
- */
+*/
 enum TidyOptionId
 {
 	TidyUnknownOption,   /**< Unknown option! */
@@ -97,7 +109,7 @@ enum TidyOptionId
 	
 	TidyDuplicateAttrs,  /**< Keep first or last duplicate attribute */
 	TidyAltText,         /**< Default text for alt attribute */
-
+	
 	/* obsolete */
 	TidySlideStyle,      /**< Style sheet for slides: not used for anything yet */
 	
@@ -117,7 +129,7 @@ enum TidyOptionId
 	TidyXmlOut,          /**< Create output as XML */
 	TidyXhtmlOut,        /**< Output extensible HTML */
 	TidyHtmlOut,         /**< Output plain HTML, even for XHTML input.
-	                      Yes means set explicitly. */
+	Yes means set explicitly. */
 	TidyXmlDecl,         /**< Add <?xml?> for XML docs */
 	TidyUpperCaseTags,   /**< Output tags in upper not lower case */
 	TidyUpperCaseAttrs,  /**< Output attributes in upper not lower case */
@@ -192,7 +204,7 @@ enum TidyOptionId
 	TidyPreTags,         /**< Declared pre tags */
 	
 	TidyAccessibilityCheckLevel, /**< Accessibility check level 
-	                              0 (old style), or 1, 2, 3 */
+	0 (old style), or 1, 2, 3 */
 	
 	TidyVertSpace,       /**< degree to which markup is spread out vertically */
 	//#if SUPPORT_ASIAN_ENCODINGS
@@ -210,16 +222,16 @@ enum TidyOptionId
 	//    N_TIDY_OPTIONS       /**< Must be last */
 };
 
-extern (C) TidyDoc tidyCreate();
-extern (C) void tidyBufInit( TidyBuffer* buf );
-extern (C) void tidyBufFree( TidyBuffer* buf );
-extern (C) void tidyRelease( TidyDoc tdoc );
-extern (C) Bool tidyOptSetBool ( TidyDoc tdoc, TidyOptionId optId, Bool val );
-extern (C) Bool tidyOptSetValue( TidyDoc tdoc, TidyOptionId optId, ctmbstr val );
-extern (C) Bool tidyOptSetInt( TidyDoc tdoc, TidyOptionId optId, ulong val );
-extern (C) int tidyParseString( TidyDoc tdoc, ctmbstr content );
-extern (C) int tidyCleanAndRepair( TidyDoc tdoc );
-extern (C) int tidySaveBuffer( TidyDoc tdoc, TidyBuffer* buf );
-extern (C) int tidySetErrorBuffer( TidyDoc tdoc, TidyBuffer* errbuf );
-extern (C) int tidyRunDiagnostics( TidyDoc tdoc );
-extern (C) Bool tidyOptResetAllToDefault( TidyDoc tdoc );
+extern (System) TidyDoc tidyCreate();
+extern (System) void tidyBufInit( TidyBuffer* buf );
+extern (System) void tidyBufFree( TidyBuffer* buf );
+extern (System) void tidyRelease( TidyDoc tdoc );
+extern (System) Bool tidyOptSetBool ( TidyDoc tdoc, TidyOptionId optId, Bool val );
+extern (System) Bool tidyOptSetValue( TidyDoc tdoc, TidyOptionId optId, ctmbstr val );
+extern (System) Bool tidyOptSetInt( TidyDoc tdoc, TidyOptionId optId, uint val );
+extern (System) int tidyParseString( TidyDoc tdoc, ctmbstr content );
+extern (System) int tidyCleanAndRepair( TidyDoc tdoc );
+extern (System) int tidySaveBuffer( TidyDoc tdoc, TidyBuffer* buf );
+extern (System) int tidySetErrorBuffer( TidyDoc tdoc, TidyBuffer* errbuf );
+extern (System) int tidyRunDiagnostics( TidyDoc tdoc );
+extern (System) Bool tidyOptResetAllToDefault( TidyDoc tdoc );

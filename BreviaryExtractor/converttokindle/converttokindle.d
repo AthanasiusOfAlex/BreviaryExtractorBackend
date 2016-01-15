@@ -19,7 +19,7 @@ void convertToKindle(Day day, string outputFolder)
 	{
 		if (!exists(kindleGenExecutable))
 		{
-			throw new Exception(format(`The kindlegen program (, '%',) does not exist. Please reinstall.`), kindleGenExecutable);
+			throw new Exception(format(`The kindlegen program '%s' does not exist. Please reinstall.`, kindleGenExecutable));
 		}
 
 		auto convertProcess = execute([kindleGenExecutable, buildPath(outputFolder, day.opfFileName)]);
