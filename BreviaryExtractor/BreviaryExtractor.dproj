@@ -115,6 +115,8 @@
     </None>
     <None Include="scripts\downloader-compile-windows.bat" />
     <None Include="scripts\tidy.dll" />
+    <None Include="scripts\tidy.lib" />
+    <None Include="scripts\coffimplib.zip" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="lm\" />
