@@ -37,9 +37,11 @@ Be sure that both `dub` and `pyinstaller` are on the path.
    - Download the library and also [CMake](https://cmake.org/).
    - Compile it and install it to a local directory [as follows](http://www.html-tidy.org/documentation/#part_building). From the command line, enter
 
-            cd {your-tidy-html5-directory}/build/cmake
-            cmake ../.. -DCMAKE_INSTALL_PREFIX={wherever you would like to install it} 
+            cd {your-tidy-html5-directory}\build\cmake
+            cmake ..\.. -DCMAKE_INSTALL_PREFIX={wherever you would like to install it} 
             cmake --build . --config Release --target INSTALL
+
+     (It goes without saying that the braces `{}` and what goes between them should be substituted with the appropriate folders.)
 
    - Go to the folder where you installed it and from the `bin` folder copy `tidy.dll` to the folder `C:\D\dmd2\windows\bin` (assuming that DMD has been installed in its default location: `C:\D`).
    - Also, from the `lib` folder, copy `tidy.lib` to the folder `C:\D\dmd2\windows\lib`.
