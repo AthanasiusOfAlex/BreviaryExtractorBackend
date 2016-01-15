@@ -26,16 +26,16 @@ Be sure that both `dub` and `pyinstaller` are on the path.
    - Download the library and also [CMake](https://cmake.org/).
    - Compile it and install it to a local directory [as follows](http://www.html-tidy.org/documentation/#part_building). From the command line, enter
 
-        cd {your-tidy-html5-directory}/build/cmake
-        cmake ../.. -DCMAKE_INSTALL_PREFIX={wherever you would like to install it} 
-        cmake --build . --config Release --target INSTALL
+            cd {your-tidy-html5-directory}/build/cmake
+            cmake ../.. -DCMAKE_INSTALL_PREFIX={wherever you would like to install it} 
+            cmake --build . --config Release --target INSTALL
 
    - Go to the folder where you installed it and from the `bin` folder copy `tidy.dll` to the folder `C:\D\dmd2\windows\bin` (assuming that DMD has been installed in its default location: `C:\D`).
    - Also, from the `lib` folder, copy `tidy.lib` to the folder `C:\D\dmd2\windows\lib`.
    - However, you must convert `tidy.lib` to the “OMF” format. This can be done using the utility [`coffimplib`](http://www.digitalmars.com/ctg/coffimplib.html) which can be found in the `scripts` folder under `BreviaryExtractor`. Simply copy unzip the archive `coffimplib.zip` and copy `coffimplib.exe` to the folder `C:\D\dmd2\windows\lib`. From a command line, type
 
-        c:
-        cd \D\dmd2\windows\lib
-        coffimplib tidy.lib -f
+            c:
+            cd \D\dmd2\windows\lib
+            coffimplib tidy.lib -f
 
      You may then delete `coffimplib.exe` from the folder `C:\D\dmd2\windows\lib`.
