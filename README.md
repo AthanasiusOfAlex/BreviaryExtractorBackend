@@ -14,10 +14,21 @@ However, there are dependencies.
 
 ## For all platforms
 
- - `dub`, which can be obtained at http://code.dlang.org/download.
+ - The latest version of [`dub`](http://code.dlang.org/download)
  - [Python 3.5](https://www.python.org/downloads/) or higher with the [PyInstaller](http://www.pyinstaller.org/) and [RoboBrowser](http://robobrowser.readthedocs.org/en/latest/) modules installed. (Both of the modules are easily installed using [`pip`](https://pypi.python.org/pypi/pip).)
 
 Be sure that both `dub` and `pyinstaller` are on the path.
+
+## For OSX
+
+ - Install Python 3.5 or later using MacPorts (https://www.macports.org/) or another similar system.
+ - Be sure that Python 3.5 (or later) is the default python, at least while you compile it. This can be configured in MacPorts using
+
+        sudo port select --set python python3.5
+
+   in a terminal.
+
+ - I am sure that this can be made to compile with [LDC](http://wiki.dlang.org/LDC), but I have not tested it.
 
 ## For Windows.
 
@@ -39,3 +50,7 @@ Be sure that both `dub` and `pyinstaller` are on the path.
             coffimplib tidy.lib -f
 
      You may then delete `coffimplib.exe` from the folder `C:\D\dmd2\windows\lib`.
+
+## For GNU/Linux.
+
+I have not tested it, but the OSX verison should compile properly on GNU/Linux, provided the dependencies are met (a D compiler, `dub`, Python with its modules, and Tidy). You might have to fiddle with the configuration files a little. (I will try to get a working version later on.)
