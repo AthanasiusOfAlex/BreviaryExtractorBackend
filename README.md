@@ -43,7 +43,7 @@ Be sure that both `dub` and `pyinstaller` are on the path.
 
      (It goes without saying that the braces `{}` and what goes between them should be substituted with the appropriate folders.)
 
-   - Go to the folder where you installed it and from the `bin` folder copy `tidy.dll` to the folder `C:\D\dmd2\windows\bin` (assuming that DMD has been installed in its default location: `C:\D`).
+   - Go to the folder where you installed it, and from the `bin` folder copy `tidy.dll` to the folder `C:\D\dmd2\windows\bin` (assuming that DMD has been installed in its default location: `C:\D`).
    - Also, from the `lib` folder, copy `tidy.lib` to the folder `C:\D\dmd2\windows\lib`.
    - However, you must convert `tidy.lib` to the “OMF” format. This can be done using the utility [`coffimplib`](http://www.digitalmars.com/ctg/coffimplib.html) which can be found in the `scripts` folder under `BreviaryExtractor`. Simply copy unzip the archive `coffimplib.zip` and copy `coffimplib.exe` to the folder `C:\D\dmd2\windows\lib`. From a command line, type
 
