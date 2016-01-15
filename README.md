@@ -2,6 +2,17 @@
 
 Takes the Liturgy of the Hours from iBreviary (http://www.ibreviary.com/m/breviario.php) and converts each hour to a Kindle-friendly format.
 
+It is not really meant as a standalone program, although it can be used as one. (It spits out a lot of standard output, however.) Without options, it will download next five days, starting with tomorrow. If you would like to change that behavior the options are as follows:
+
+<dl>
+  <dt>--language=<em>language</em></dt>
+  <dd>The desired language. Possible values: it, en, es, fr, pt, ro, ar, ra, la, vt. Default: en.</dd>
+  <dt>--numberOfDays=<em>integer</em></dt>
+  <dd>The number of days to download. Default: 5.</dd>
+  <dt>--saveToFolder=<em>folder</em></dt>
+  <dd>The folder where the files should be saved. It will be created if necessary. By default, the program saves them in the current working directory.</dd>
+</dl>
+
 # Notes for compiling.
 
 In both OS X and Windows, the program should build simply by entering the root of the archive and typing
