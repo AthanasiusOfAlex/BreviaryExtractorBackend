@@ -53,10 +53,10 @@ int main(string[] args)
 		return 1;
 	}
 
-	auto progressIndicator = new ProgressIndicator!ProgressEmitNumbers(options.numberOfDays * EnumMembers!Hora.length, 70);
-
 	try
 	{
+		auto progressIndicator = new ProgressIndicator!ProgressEmitNumbers(options.numberOfDays * EnumMembers!Hora.length, 70);
+
 		downloader = new Downloader();
 
 		foreach(date; take(dateGenerator(options.startDate), options.numberOfDays))
