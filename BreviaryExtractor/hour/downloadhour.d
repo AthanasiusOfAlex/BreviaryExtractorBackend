@@ -15,6 +15,7 @@ import std.stdio;
 import config;
 
 class DownloaderException : Exception { mixin ExceptionCtorMixin; }
+class InternetException: Exception {mixin ExceptionCtorMixin; }
 
 class Downloader
 {
@@ -51,7 +52,7 @@ class Downloader
 			{
 				throw exc;
 			});
-			
+		
 		// Parce and process the reply.
 		auto replyParts = reply.splitFirst(`:\s*`);
 
@@ -73,7 +74,18 @@ class Downloader
 
 			if (!replyParts.empty)
 			{
-				throw new DownloaderException(replyParts.front);
+				// Isolate the internet connection error.
+				auto errorMessage = replyParts.front;
+				auto errorClassification = errorMessage.splitFirst(`\(`).front;
+
+				if (errorClassification=="HTTPConnectionPool")
+				{
+					throw new InternetException(errorMessage);
+				}
+				else
+				{
+					throw new DownloaderException(errorMessage);
+				}
 			}
 			else
 			{

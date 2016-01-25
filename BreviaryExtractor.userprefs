@@ -1,8 +1,10 @@
 ﻿<Properties StartupItem="BreviaryExtractor/BreviaryExtractor.dproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="README.md">
+  <MonoDevelop.Ide.Workbench ActiveDocument="BreviaryExtractor/hour/downloadhour.d">
     <Files>
-      <File FileName="README.md" Line="18" Column="44" />
+      <File FileName="BreviaryExtractor/main.d" Line="89" Column="11" />
+      <File FileName="BreviaryExtractor/hour/downloadhour.d" Line="83" Column="4" />
+      <File FileName="BreviaryExtractor/lm/regexhelper.d" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
