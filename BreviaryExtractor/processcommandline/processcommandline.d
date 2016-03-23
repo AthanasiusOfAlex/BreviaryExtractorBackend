@@ -18,6 +18,7 @@ class Options {
 	@property PackageBy packageBy() { return mPackageBy; }
 	@property string saveToFolder() { return mSaveToFolder; }
 	@property SaveToCalibre openInCalibre() { return mSaveToCalibre; }
+	@property string proxy() { return mProxy; }
 
 	this(ref string[] args)
 	{
@@ -40,7 +41,8 @@ class Options {
 			startDate.stringof.baseName, &mStartDateString,
 			packageBy.stringof.baseName, &mPackageBy,
 			saveToFolder.stringof.baseName, &mSaveToFolder,
-			openInCalibre.stringof.baseName, &mSaveToCalibre);
+			openInCalibre.stringof.baseName, &mSaveToCalibre,
+			proxy.stringof.baseName, &mProxy);
 
 		mSaveToFolder = mSaveToFolder.expandTilde;
 
@@ -58,6 +60,7 @@ private:
 	string mSaveToFolder;
 	SaveToCalibre mSaveToCalibre = SaveToCalibre.yes;
 	string mStartDateString;
+	string mProxy;
 
 	Date toDate(string input)
 	{

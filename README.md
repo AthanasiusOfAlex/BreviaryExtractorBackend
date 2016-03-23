@@ -15,7 +15,7 @@ It is not really meant as a standalone program, although it can be used as one. 
 
 # Notes for compiling.
 
-In both OS X and Windows, the program should build simply by entering the root of the archive and typing
+In both OS X and Windows, the program should build simply by entering the root directory of the archive and typing
 
     dub build
 
@@ -35,7 +35,7 @@ Be sure that both `dub` and `pyinstaller` are on the path.
  - Install Python 3.5 or later using MacPorts (https://www.macports.org/) or another similar system.
  - Be sure that Python 3.5 (or later) is the default python, at least while you compile it. This can be configured in MacPorts using
 
-        sudo port select --set python python3.5
+        sudo port select --set python python35
 
    in a terminal.
 
