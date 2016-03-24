@@ -19,9 +19,29 @@ import progressindicator;
 
 int main(string[] args)
 {
+	auto helpText =
+		"Available options:\n"
+			"\n" ~
+			format("    --%-13s %s\n", "help", "Display this help message") ~
+			format("    --%-13s %s\n", "language", "the language to use (it|en|es|fr|pt|ro|ar|ra|la|vt)") ~
+			format("    --%-13s %s\n", "numberOfDays", "how many days to download") ~
+			format("    --%-13s %s\n", "startDate", "when to start (yyyy-mm-dd or yyyy-mmm-dd)") ~
+			format("    --%-13s %s\n", "packageBy", "package by day, week, or month") ~
+			format("    --%-13s %s\n", "saveToFolder", "which folder to download the MOBI files to") ~
+			format("    --%-13s %s\n", "openInCalibre", "open in Calibre (yes|no)") ~
+			format("    --%-13s %s\n", "proxy", "the proxy server to use, if any") ~
+			"                    (Always use the form http[s]://user:pwd@nnn.nnn.nnn:80/)\n"
+			"\n"
+			"Note: this program returns with error code 5 if the internet\n"
+			"      connection fails and 1 for any other error.";
 	try
 	{
 		options = new Options(args);
+	}
+	catch(HelpTextException)
+	{
+		writeln(helpText);
+		return 0;
 	}
 	catch(Exception exception)
 	{
@@ -29,15 +49,8 @@ int main(string[] args)
 
 		stderr.writeln(exception.msg);
 		stderr.writeln;
-		stderr.writeln("Available options:");
-		stderr.writefln("    --%-13s %s", "language", "the language to use (it|en|es|fr|pt|ro|ar|ra|la|vt)");
-		stderr.writefln("    --%-13s %s", "numberOfDays", "how many days to download");
-		stderr.writefln("    --%-13s %s", "startDate", "when to start (yyyy-mm-dd or yyyy-mmm-dd)");
-		stderr.writefln("    --%-13s %s", "packageBy", "package by day, week, or month");
-		stderr.writefln("    --%-13s %s", "saveToFolder", "which folder to download the MOBI files to");
-		stderr.writefln("    --%-13s %s", "openInCalibre", "open in Calibre (yes|no)");
-		stderr.writeln;
-		stderr.writeln("Note: this program returns with error code 5 if the internet connection fails and 1 for any other error.");
+		stderr.writeln(helpText);
+
 		return 1;
 	}
 
@@ -83,6 +96,11 @@ int main(string[] args)
 
 		return 0;
 	}
+	catch (ProxyException exception)
+	{
+		stderr.writefln(exception.msg);
+		return 5;
+	}
 	catch (InternetException exception)
 	{
 		stderr.writefln("There was a problem connecting to the Internet.");
@@ -96,7 +114,7 @@ int main(string[] args)
 	}
 	catch (Exception exception)
 	{
-		stderr.writefln("An unspecified error occurred: '%s'", exception.msg);
+		stderr.writefln("An unspecified error occurred: '%s' in file '%s' at line '%s'", exception.msg, exception.file, exception.line);
 		return 1;
 	}
 }

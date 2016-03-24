@@ -31,11 +31,11 @@ def downloadHour(year, month, day, language, hour):
 		browser = RoboBrowser(history=True)
 
 		# Set the iBreviary options
-		if (proxy==None):
+		if proxy==None:
 			browser.open(optionsURI)
 		else:
 			browser.open(optionsURI, proxies={'http': proxy})
-
+		
 		optionsForm = browser.get_form(action='/m2/opzioni.php')
 
 		optionsForm["anno"] = year
@@ -65,19 +65,23 @@ def getProxy(arguments):   # For now, we will be taking at most one proxy server
 		raise Exception("Proxy instruction must have exactly two arguments (`proxy` and the address of the proxy server).")
 
 	proxyString = arguments[1]
-	
-	# Now, make sure it is a valid proxy address. If not, raise exception.
-	regex = re.compile('https?://[\d\w\.-]+(:\d+)?/?')
+
+	# The proxy can be set to "None", in which case the proxy string be None (null).
+	if proxyString=="None":
+		return (None, "PROXY OK")
+
+	# Now, make sure it is a valid proxy address. If not, change nothing and give error message.
+	regex = re.compile('https?://([^@:]+:)?([^@:]+@)?[\d\w\.-]+(:\d+)?/?')
 	match = re.match(regex, proxyString)
 
 	if match==None:
-		raise Exception("Proxy server string must be in the form `http[s]://nnn.nnn.nnn:pp/`")
+		return (proxy, "PROXY ERROR")   # NB: 'proxy' is the global variable. Returning it means it won't be changed.
 
 	# Add final slash (/) if it is missing.
 	if proxyString[-1:] != '/':
 		proxyString += '/'
 
-	return proxyString
+	return (proxyString, "PROXY OK")
 
 def sanitizeOutput(input):
 	regex = re.compile('\s+')
@@ -87,27 +91,33 @@ try:
 	for line in sys.stdin:
 		arguments = line.split()
 
+		if len(arguments)==0:
+			continue
+
 		if arguments[0]=="download":
 			year, month, day, language, hour = parseInstruction(arguments)
-
+		
 			output = downloadHour(year, month, day, language, hour)
 			output = sanitizeOutput(output)
-
+		
 			sys.stdout.buffer.write(bytes(output, 'utf-8'))
 			sys.stdout.flush()
-
+		
 		elif arguments[0]=="proxy":
-			proxy = getProxy(arguments)
+			proxy, status = getProxy(arguments)
+			sys.stdout.write("PROXY: " + status + "\n")
+			sys.stdout.flush()
 					
 		elif arguments[0]=="quit":
 			sys.stdout.write("DONE\n")
 			break
-
+		
 		else:
 			raise Exception("Unknown input: " + line.strip() + '\n')
 
 except Exception as ex:
-	sys.stdout.write("EXC: " + str(ex) + '\n')
+	excType, excObj, excTraceback = sys.exc_info()
+	sys.stdout.write("EXC: '" + str(ex) + "' at line " + str(excTraceback.tb_lineno) + '\n')
 	sys.stdout.flush()
 
 sys.stdout.flush()

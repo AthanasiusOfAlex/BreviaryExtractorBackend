@@ -10,6 +10,8 @@ import lm.userfolders;
 
 import config;
 
+class HelpTextException : Exception { mixin ExceptionCtorMixin; }
+
 class Options {
 
 	@property Language language() { return mLanguage; }
@@ -42,7 +44,13 @@ class Options {
 			packageBy.stringof.baseName, &mPackageBy,
 			saveToFolder.stringof.baseName, &mSaveToFolder,
 			openInCalibre.stringof.baseName, &mSaveToCalibre,
-			proxy.stringof.baseName, &mProxy);
+			proxy.stringof.baseName, &mProxy,
+			help.stringof.baseName, &help);
+
+		if (help==true)
+		{
+			throw new HelpTextException("The help text was requested.");
+		}
 
 		mSaveToFolder = mSaveToFolder.expandTilde;
 
@@ -61,6 +69,7 @@ private:
 	SaveToCalibre mSaveToCalibre = SaveToCalibre.yes;
 	string mStartDateString;
 	string mProxy;
+	bool help;
 
 	Date toDate(string input)
 	{

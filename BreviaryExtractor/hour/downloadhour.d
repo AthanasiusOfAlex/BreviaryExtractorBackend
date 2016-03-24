@@ -8,20 +8,30 @@ module downloadhour;
 
 
 
+import std.algorithm.iteration;
 import std.concurrency;
+import std.conv;
 import std.datetime;
+import std.file;
+import std.process;
+import std.range;
 import std.stdio;
+import std.string;
+
+import lm.regexhelper;
 
 import config;
 
 class DownloaderException : Exception { mixin ExceptionCtorMixin; }
 class InternetException: Exception {mixin ExceptionCtorMixin; }
+class ProxyException: Exception {mixin ExceptionCtorMixin; }
 
 class Downloader
 {
 	this()
 	{
 		open;
+		setProxy;
 	}
 
 	bool isOpen = false;
@@ -29,71 +39,30 @@ class Downloader
 	/// Downloads the hour.
 	string downloadHour(Date date, Hora hora, Language language)
 	{
-		import std.range;
-		import lm.regexhelper;
-
-		if (!isOpen)
-		{
-			throw new DownloaderException("Attempt to use the Downloader when it is closed. Please open it first.");
-		}
-
 		auto argument = makeArgument(date, hora, language);
-		processManager.send(argument);
-		string reply;
 
-		// Receive the reply (or an exception).
-		receive(
-			(string message)
-			{ 
-				reply = message;
-			},
+		return relayMessage(argument);
+	}
 
-			(shared(Exception) exc)
-			{
-				throw exc;
-			});
-		
-		// Parce and process the reply.
-		auto replyParts = reply.splitFirst(`:\s*`);
+	/// Changes the proxy setting.
+	void setProxy()
+	{
+		string proxyMessage = "";
 
-		string message;
-		if (replyParts.front=="HTML")
+		if (options.proxy=="" || options.proxy=="None")
 		{
-			replyParts.popFront;
-			if (!replyParts.empty)
-			{
-				message = replyParts.front;
-			}
+			proxyMessage = "proxy None";
 		}
-		else if (replyParts.front=="EXC")
+		else if (options.proxy.isMatchOf!`https?://([^@:]+:)?([^@:]+@)?[\d\w\.-]+(:\d+)?/?`)
 		{
-			replyParts.popFront;
-
-			// Close off the child thread and throw an exception.
-			close;
-
-			if (!replyParts.empty)
-			{
-				// Isolate the internet connection error.
-				auto errorMessage = replyParts.front;
-				auto errorClassification = errorMessage.splitFirst(`\(`).front;
-
-				if (errorClassification=="HTTPConnectionPool")
-				{
-					throw new InternetException(errorMessage);
-				}
-				else
-				{
-					throw new DownloaderException(errorMessage);
-				}
-			}
-			else
-			{
-				throw new DownloaderException("Unspecified error given by downloader application.");
-			}
+			proxyMessage = format("proxy %s", options.proxy);
+		}
+		else
+		{
+			throw new ProxyException(format("An invalid proxy-server address was given: ‘%s’.", options.proxy));
 		}
 
-		return message;
+		auto reply = relayMessage(proxyMessage ~ "\n");
 	}
 
 	/// Opens the thread.
@@ -101,9 +70,6 @@ class Downloader
 	{
 		if (!isOpen)
 		{
-			import std.file;
-			import std.string;
-
 			if (!exists(downloadExecutible))
 			{
 				throw new DownloaderException(format(`%s, does not exist. Please reinstall.`, downloadExecutible));
@@ -137,8 +103,6 @@ private:
 	/// This argument will retrieve the desired hour.
 	string makeArgument(Date date, Hora hora, Language language)
 	{
-		import std.conv;
-		import std.string;
 
 		return format(`download %s %s %s %s %s`,
 			date.year,
@@ -147,18 +111,91 @@ private:
 			language,
 			hora);
 	}
+
+	/// Relays a message and returns the reply.
+	string relayMessage(string message)
+	{
+		makeSureDownloaderIsOpen;
+		processManager.send(message);
+
+		string reply;
+		// Receive the reply (or an exception).
+		receive(
+			(string message)
+			{ 
+				reply = message;
+			},
+			
+			(shared(Exception) exc)
+			{
+				throw exc;
+			});
+		
+		// Parce and process the reply.
+		auto replyParts = reply.splitFirst(`:\s*`);
+
+		string result;
+
+		string replyHeader = replyParts.front;
+		if (replyHeader.isMatchOf!`(HTML|PROXY)`)
+		{
+			replyParts.popFront;
+			if (!replyParts.empty)
+			{
+				result = replyParts.front;
+			}
+		}
+		else if (replyHeader=="EXC")
+		{
+			replyParts.popFront;
+			
+			// Close off the child thread and throw an exception.
+			close;
+			
+			if (!replyParts.empty)
+			{
+				// Isolate the internet connection error.
+				auto errorMessage = replyParts.front;
+				auto errorClassification = errorMessage.splitFirst(`\(`).front;
+				
+				if (errorClassification=="HTTPConnectionPool")
+				{
+					throw new InternetException(errorMessage);
+				}
+				else
+				{
+					throw new DownloaderException(errorMessage);
+				}
+			}
+			else
+			{
+				throw new DownloaderException("Unspecified error given by downloader application.");
+			}
+		}
+		else
+		{
+			throw new DownloaderException(format("Unknown reply '%s' given from downloader application.", reply));
+		}
+
+		return result;
+	}
+
+	void makeSureDownloaderIsOpen()
+	{
+		if (!isOpen)
+		{
+			throw new DownloaderException("Attempt to use the Downloader when it is closed. Please open it first.");
+		}
+	}
 }
 
 private:
 void manageExternalProcess()
 {
-	import std.algorithm.iteration;
-	import std.process;
-	import std.range;
-
 	ProcessPipes pipes;
 
-	try {
+	try
+	{
 		// Set up the process.
 		pipes = pipeProcess(downloadExecutible, Redirect.all);
 
@@ -175,24 +212,46 @@ void manageExternalProcess()
 		{
 			auto messageReceived = receiveOnly!string();
 
-			if (messageReceived=="quit")
+			if (messageReceived=="")
+			{
+				throw new DownloaderException("You sent me an empty string. That is invalid.");
+			}
+
+			string messageHeader = messageReceived.splitter.front;
+
+			if (!messageHeader.isMatchOf!`(quit|download|proxy)`)
+			{
+				throw new DownloaderException("The only message headers allowed are 'quit', 'download', and 'proxy'");
+			}
+
+			if (messageHeader=="quit")
 			{
 				break;
 			}
+			else
+			{
+				// Make sure the message is properly constructed.
+				auto messageLength = messageReceived.splitter.array.length;
+				if (messageHeader=="download" && messageLength!=6)
+				{
+					throw new DownloaderException("Download messages should always have six arguments: 'download', year, month, day, language, hour.");
+				}
+				// Make sure the message is properly constructed.
+				if (messageHeader=="download" && messageLength!=6)
+				{
+					throw new DownloaderException("Proxy messages should always have two arguments: 'proxy' and the proxy server.");
+				}
 
-			// Make sure the message is properly constructed.
-			assert(messageReceived.splitter.front=="download", "Messages should always begin with 'download'.");
-			assert(messageReceived.splitter.array.length==6, "Messages should always have six arguments: 'download', year, month, day, language, hour.");
+				// Send it in to the scraper. (I will close the stdio stream later.)
+				pipes.stdin.writeln(messageReceived);
+				pipes.stdin.flush;
 
-			// Send it in to the scraper. (I will close the stdio stream later.)
-			pipes.stdin.writeln(messageReceived);
-			pipes.stdin.flush;
+				// Wait for the reply.
+				string reply = pipes.stdout.byLine.front.idup;
 
-			// Wait for the reply.
-			string reply = pipes.stdout.byLine.front.idup;
-
-			// Send the reply back to the owner thread.
-			ownerTid.send(reply);
+				// Send the reply back to the owner thread.
+				ownerTid.send(reply);
+			}
 		}
 	}
 	catch (OwnerTerminated exc)
@@ -206,7 +265,6 @@ void manageExternalProcess()
 		// Send it back to the owner.
 		ownerTid.send(exc);
 	}
-
 }
 
 public:

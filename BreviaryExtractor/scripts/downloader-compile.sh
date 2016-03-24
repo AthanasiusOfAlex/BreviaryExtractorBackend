@@ -16,4 +16,5 @@ mkdir -p ${OutputDir}
 cd ${OutputDir}
 ${PyInstaller} ${Source} --onefile
 
+mkdir -p ${BinResourceDir}
 cp ${Product} ${BinResourceDir}
