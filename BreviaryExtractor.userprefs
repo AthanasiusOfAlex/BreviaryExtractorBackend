@@ -2,7 +2,7 @@
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.Workbench ActiveDocument="BreviaryExtractor/scripts/downloader.py">
     <Files>
-      <File FileName="BreviaryExtractor/scripts/downloader.py" Line="38" Column="1" />
+      <File FileName="BreviaryExtractor/scripts/downloader.py" Line="57" Column="37" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
