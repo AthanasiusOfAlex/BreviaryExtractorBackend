@@ -15,7 +15,6 @@ Product=${OutputDir}/dist/${ToolName}
 BinDir=${RootDir}/bin/${Platform}
 BinResourceDir=${BinDir}/resources
 
-echo SourceDir: ${SourceDir}
 mkdir -p ${OutputDir}
 mkdir -p ${BinResourceDir}
 

@@ -19,27 +19,21 @@ In both OS X and Windows, the program should build simply by entering the root d
 
     dub build
 
-The binary, the resources, and (for Windows) the `tidy.dll` file will all be located in the `bin/osx` or `bin\windows` folder.
+In some cases, it might be necessary to force the build to occur:
 
-However, there are dependencies.
+    dub build --force
+
+The binary, the resources, and (for Windows) the `tidy.dll` file will all be located in the `bin/osx` or `bin\windows` folder.
 
 ## For all platforms
 
  - The latest version of [`dub`](http://code.dlang.org/download)
- - [Python 3.5](https://www.python.org/downloads/) or higher with the [PyInstaller](http://www.pyinstaller.org/) and [RoboBrowser](http://robobrowser.readthedocs.org/en/latest/) modules installed. (Both of the modules are easily installed using [`pip`](https://pypi.python.org/pypi/pip).)
 
-Be sure that both `dub` and `pyinstaller` are on the path.
+Be sure that `dub` is on the path.
 
 ## For OSX
 
- - Install Python 3.5 or later using MacPorts (https://www.macports.org/) or another similar system.
- - Be sure that Python 3.5 (or later) is the default python, at least while you compile it. This can be configured in MacPorts using
-
-        sudo port select --set python python35
-
-   in a terminal.
-
- - I am sure that this can be made to compile with [LDC](http://wiki.dlang.org/LDC), but I have not tested it.
+ - I have been using DMD. I am sure that this can be made to compile with [LDC](http://wiki.dlang.org/LDC), but I have not tested it.
 
 ## For Windows.
 

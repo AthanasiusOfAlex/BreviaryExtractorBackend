@@ -299,7 +299,7 @@ public:
 		];
 		client = HTTP();
 		client.proxy = proxy;
-		
+
 	}
 
 	@property string downloadHour() {

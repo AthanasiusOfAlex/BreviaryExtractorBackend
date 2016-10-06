@@ -72,6 +72,9 @@ int main(string[] args)
 
 		downloader = new Downloader();
 
+		version(none){
+
+
 		foreach(date; take(dateGenerator(options.startDate), options.numberOfDays))
 		{
 			auto day = new Day(date, options.language, progressIndicator);
@@ -93,8 +96,12 @@ int main(string[] args)
 		}
 
 		cleanUpFolder(options.saveToFolder);
+		}
+
+		writeln("Got this far....");
 
 		return 0;
+
 	}
 	catch (ProxyException exception)
 	{
@@ -117,4 +124,5 @@ int main(string[] args)
 		stderr.writefln("An unspecified error occurred: '%s' in file '%s' at line '%s'", exception.msg, exception.file, exception.line);
 		return 1;
 	}
+
 }
