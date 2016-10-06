@@ -9,8 +9,9 @@ module downloadhour;
 
 
 import std.algorithm.iteration;
-import std.concurrency;
+//import std.concurrency;
 import std.conv;
+import std.net.curl;
 import std.datetime;
 import std.file;
 import std.process;
@@ -23,8 +24,10 @@ import lm.regexhelper;
 import config;
 
 class DownloaderException : Exception { mixin ExceptionCtorMixin; }
-class InternetException: Exception {mixin ExceptionCtorMixin; }
-class ProxyException: Exception {mixin ExceptionCtorMixin; }
+class InternetException: Exception { mixin ExceptionCtorMixin; }
+class ProxyException: Exception { mixin ExceptionCtorMixin; }
+
+version(none) {
 
 class Downloader
 {
@@ -267,6 +270,54 @@ void manageExternalProcess()
 	}
 }
 
+}
+
+class Downloader {
+
+private:
+
+	immutable string baseURL = "http://www.ibreviary.com/m2/";
+	immutable string breviaryURL = baseURL ~ "breviario.php?s=";
+	immutable string[Hora] hourNames;
+	string proxy = "http://gateway.zscaler.net:80";
+	HTTP client;
+	Date date;
+	Hora hora = Hora.office;
+	Language language = Language.en;
+
+public:
+	
+	this() {
+
+		date = cast(Date)Clock.currTime();
+		hourNames = [
+			Hora.office: "ufficio_delle_letture",
+			Hora.lauds: "lodi",
+			Hora.daytime: "ora_media",
+			Hora.vespers: "vespri",
+			Hora.complines: "compieta"
+		];
+		client = HTTP();
+		client.proxy = proxy;
+		
+	}
+
+	@property string downloadHour() {
+
+		string data = format(
+			"lang=%s&anno=%s&mese=%s&giorno=%s&ok=ok",
+			language,
+			date.year,
+			date.month.to!int,
+			date.day);
+
+		return "";
+	
+	}
+
+}
+
+
 public:
 /**
  * A convenience function that 
@@ -276,5 +327,11 @@ public:
  */
 string downloadHour(Date date, Hora hora, Language language)
 {
-	return downloader.downloadHour(date, hora, language);
+
+	downloader.date = date;
+	downloader.hora = hora;
+	downloader.language = language;
+
+	return downloader.downloadHour;
+
 }

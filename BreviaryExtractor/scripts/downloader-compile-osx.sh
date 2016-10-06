@@ -15,13 +15,14 @@ Product=${OutputDir}/dist/${ToolName}
 BinDir=${RootDir}/bin/${Platform}
 BinResourceDir=${BinDir}/resources
 
+echo SourceDir: ${SourceDir}
 mkdir -p ${OutputDir}
 mkdir -p ${BinResourceDir}
 
-# Make the downloader and copy to target resource directory.
-cd ${OutputDir}
-${PyInstaller} ${Source} --onefile
-cp ${Product} ${BinResourceDir}
+## Make the downloader and copy to target resource directory.
+#cd ${OutputDir}
+#${PyInstaller} ${Source} --onefile
+#cp ${Product} ${BinResourceDir}
 
 # Copy the kindlegen program to the resource directory.
 cp ${SourceDir}/${KindleName} ${BinResourceDir}
