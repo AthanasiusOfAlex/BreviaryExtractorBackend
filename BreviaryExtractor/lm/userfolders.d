@@ -100,7 +100,8 @@ string getLocalSettingsFolder()
 
 string getCurrentWorkingFolder()
 {
-	return std.file.getcwd;
+	import std.file;
+	return getcwd;
 }
 
 version(OSX)
