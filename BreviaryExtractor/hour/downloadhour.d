@@ -278,7 +278,7 @@ private:
 
 	immutable string baseURL = "http://www.ibreviary.com/m2/";
 	immutable string breviaryURL = baseURL ~ "breviario.php?s=";
-	immutable string[Hora] hourNames;
+	immutable string[Hora] horaNames;
 	string proxy = "http://gateway.zscaler.net:80";
 	HTTP client;
 	Date date;
@@ -290,19 +290,23 @@ public:
 	this() {
 
 		date = cast(Date)Clock.currTime();
-		hourNames = [
+		horaNames = [
 			Hora.office: "ufficio_delle_letture",
 			Hora.lauds: "lodi",
 			Hora.daytime: "ora_media",
 			Hora.vespers: "vespri",
 			Hora.complines: "compieta"
 		];
-		client = HTTP();
-		client.proxy = proxy;
+
+
 
 	}
 
 	@property string downloadHour() {
+	
+		client = HTTP();
+		client.proxy = proxy;
+		scope(exit) client.shutdown();
 
 		string data = format(
 			"lang=%s&anno=%s&mese=%s&giorno=%s&ok=ok",
@@ -310,8 +314,11 @@ public:
 			date.year,
 			date.month.to!int,
 			date.day);
+			
+		string url = breviaryURL ~ horaNames[hora];
+		auto result = post(url, data, client);
 
-		return "";
+		return format(result);
 	
 	}
 

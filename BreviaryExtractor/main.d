@@ -68,12 +68,13 @@ int main(string[] args)
 
 	try
 	{
-		auto progressIndicator = new ProgressIndicator!ProgressEmitNumbers(options.numberOfDays * EnumMembers!Hora.length, 70);
+		auto numberOfHorae = EnumMembers!Hora.length;
+		auto totalNumberOfTicks = options.numberOfDays * numberOfHorae;
+		auto totalDisplayMarks = 70;
+
+		auto progressIndicator = new ProgressIndicator!ProgressEmitNumbers(totalNumberOfTicks, totalDisplayMarks);
 
 		downloader = new Downloader();
-
-		version(none){
-
 
 		foreach(date; take(dateGenerator(options.startDate), options.numberOfDays))
 		{
@@ -90,15 +91,13 @@ int main(string[] args)
 
 				auto opfFile = File(buildPath(options.saveToFolder, day.opfFileName), "w");
 				opfFile.writeln(day.opfFile);
+
 			}
 
 			convertToKindle(day, options.saveToFolder);
 		}
 
 		cleanUpFolder(options.saveToFolder);
-		}
-
-		writeln("Got this far....");
 
 		return 0;
 

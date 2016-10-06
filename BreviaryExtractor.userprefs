@@ -1,12 +1,10 @@
 ﻿<Properties StartupItem="BreviaryExtractor/BreviaryExtractor.dproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="BreviaryExtractor/scripts/downloader-compile-osx.sh">
+  <MonoDevelop.Ide.Workbench ActiveDocument="BreviaryExtractor/hour/downloadhour.d">
     <Files>
-      <File FileName="BreviaryExtractor/filemanager/filemanager.d" Line="1" Column="1" />
-      <File FileName="BreviaryExtractor/hour/downloadhour.d" Line="13" Column="16" />
-      <File FileName="BreviaryExtractor/config.d" Line="45" Column="6" />
-      <File FileName="../../Projects/CurlOnD/CurlOnD/source/main.d" Line="62" Column="14" />
-      <File FileName="BreviaryExtractor/scripts/downloader-compile-osx.sh" Line="27" Column="11" />
+      <File FileName="BreviaryExtractor/main.d" Line="102" Column="12" />
+      <File FileName="BreviaryExtractor/hour/downloadhour.d" Line="309" Column="3" />
+      <File FileName="../../Projects/CurlOnD/CurlOnD/source/main.d" Line="63" Column="2" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
